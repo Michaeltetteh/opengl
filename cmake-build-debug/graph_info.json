@@ -1,16 +1,44 @@
 {
  "options": [
   [
-   "glew:fPIC",
+   "glad:extensions",
+   "''"
+  ],
+  [
+   "glad:fPIC",
    "True"
   ],
   [
-   "glew:shared",
+   "glad:gl_profile",
+   "compatibility"
+  ],
+  [
+   "glad:gl_version",
+   "3.3"
+  ],
+  [
+   "glad:gles1_version",
+   "None"
+  ],
+  [
+   "glad:gles2_version",
+   "None"
+  ],
+  [
+   "glad:glsc2_version",
+   "None"
+  ],
+  [
+   "glad:no_loader",
    "False"
   ],
   [
-   "glew:with_egl",
+   "glad:shared",
    "False"
+  ],
+  [
+   "glad:spec",
+   "gl"
   ],
   [
    "glfw:fPIC",

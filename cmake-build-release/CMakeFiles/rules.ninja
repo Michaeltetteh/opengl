@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/mike/Desktop/cpp_projects/opengl -B/Users/mike/Desktop/cpp_projects/opengl/cmake-build-release
+  command = /Applications/CMake.app/Contents/bin/cmake --regenerate-during-build -S/Users/mike/Desktop/cpp_projects/opengl -B/Users/mike/Desktop/cpp_projects/opengl/cmake-build-release
   description = Re-running CMake...
   generator = 1
 

@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.2"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "Release",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "OPENGL::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-OPENGL-Release-cccd2afcbff564b4dcd9.json",
+					"jsonFile" : "target-OPENGL-Debug-362d7cc5e87890910212.json",
 					"name" : "OPENGL",
 					"projectIndex" : 0
 				}
@@ -49,7 +49,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/mike/Desktop/cpp_projects/opengl/cmake-build-release",
+		"build" : "/Users/mike/Desktop/cpp_projects/opengl/cmake-build-debug",
 		"source" : "/Users/mike/Desktop/cpp_projects/opengl"
 	},
 	"version" : 

@@ -7,5 +7,5 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 
-add_executable(OPENGL main.cpp)
+add_executable(OPENGL src/main.cpp)
 target_link_libraries(OPENGL ${CONAN_LIBS})
