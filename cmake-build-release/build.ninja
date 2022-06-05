@@ -52,7 +52,14 @@ build cmake_object_order_depends_target_OPENGL: phony || CMakeFiles/OPENGL.dir
 build CMakeFiles/OPENGL.dir/src/main.cpp.o: CXX_COMPILER__OPENGL_Release /Users/mike/Desktop/cpp_projects/opengl/src/main.cpp || cmake_object_order_depends_target_OPENGL
   DEP_FILE = CMakeFiles/OPENGL.dir/src/main.cpp.o.d
   FLAGS = -O3 -DNDEBUG  -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk -DGL_SILENCE_DEPRECATION=1 -std=gnu++11
-  INCLUDES = -I/Users/mike/.conan/data/glfw/3.3.7/_/_/package/15f4a6675772271c84593de28e2f0216f3e89e38/include -I/Users/mike/.conan/data/glm/0.9.9.8/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include -I/Users/mike/.conan/data/glad/0.1.35/_/_/package/78d7ace0da7ba90ae20a2795942a7a1fddfdc511/include
+  INCLUDES = -I/Users/mike/.conan/data/glfw/3.3.7/_/_/package/15f4a6675772271c84593de28e2f0216f3e89e38/include -I/Users/mike/.conan/data/glm/0.9.9.8/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include
+  OBJECT_DIR = CMakeFiles/OPENGL.dir
+  OBJECT_FILE_DIR = CMakeFiles/OPENGL.dir/src
+
+build CMakeFiles/OPENGL.dir/src/glad.c.o: C_COMPILER__OPENGL_Release /Users/mike/Desktop/cpp_projects/opengl/src/glad.c || cmake_object_order_depends_target_OPENGL
+  DEP_FILE = CMakeFiles/OPENGL.dir/src/glad.c.o.d
+  FLAGS = -O3 -DNDEBUG  -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk -DGL_SILENCE_DEPRECATION=1
+  INCLUDES = -I/Users/mike/.conan/data/glfw/3.3.7/_/_/package/15f4a6675772271c84593de28e2f0216f3e89e38/include -I/Users/mike/.conan/data/glm/0.9.9.8/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include
   OBJECT_DIR = CMakeFiles/OPENGL.dir
   OBJECT_FILE_DIR = CMakeFiles/OPENGL.dir/src
 
@@ -64,10 +71,10 @@ build CMakeFiles/OPENGL.dir/src/main.cpp.o: CXX_COMPILER__OPENGL_Release /Users/
 #############################################
 # Link the executable bin/OPENGL
 
-build bin/OPENGL: CXX_EXECUTABLE_LINKER__OPENGL_Release CMakeFiles/OPENGL.dir/src/main.cpp.o
+build bin/OPENGL: CXX_EXECUTABLE_LINKER__OPENGL_Release CMakeFiles/OPENGL.dir/src/main.cpp.o CMakeFiles/OPENGL.dir/src/glad.c.o
   FLAGS = -O3 -DNDEBUG  -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk
-  LINK_LIBRARIES = -lglfw3  -lglad  -framework  Cocoa  -framework  IOKit  -framework  CoreFoundation  -framework  OpenGL
-  LINK_PATH = -L/Users/mike/.conan/data/glfw/3.3.7/_/_/package/15f4a6675772271c84593de28e2f0216f3e89e38/lib   -L/Users/mike/.conan/data/glad/0.1.35/_/_/package/78d7ace0da7ba90ae20a2795942a7a1fddfdc511/lib
+  LINK_LIBRARIES = -lglfw3  -framework  Cocoa  -framework  IOKit  -framework  CoreFoundation  -framework  OpenGL
+  LINK_PATH = -L/Users/mike/.conan/data/glfw/3.3.7/_/_/package/15f4a6675772271c84593de28e2f0216f3e89e38/lib
   OBJECT_DIR = CMakeFiles/OPENGL.dir
   POST_BUILD = :
   PRE_LINK = :

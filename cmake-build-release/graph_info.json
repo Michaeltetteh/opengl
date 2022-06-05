@@ -1,46 +1,6 @@
 {
  "options": [
   [
-   "glad:extensions",
-   "''"
-  ],
-  [
-   "glad:fPIC",
-   "True"
-  ],
-  [
-   "glad:gl_profile",
-   "compatibility"
-  ],
-  [
-   "glad:gl_version",
-   "3.3"
-  ],
-  [
-   "glad:gles1_version",
-   "None"
-  ],
-  [
-   "glad:gles2_version",
-   "None"
-  ],
-  [
-   "glad:glsc2_version",
-   "None"
-  ],
-  [
-   "glad:no_loader",
-   "False"
-  ],
-  [
-   "glad:shared",
-   "False"
-  ],
-  [
-   "glad:spec",
-   "gl"
-  ],
-  [
    "glfw:fPIC",
    "True"
   ],

@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
+set(HEADERS include/glad/glad.h include/KHR/khrplatform.h)
 
-
-add_executable(OPENGL src/main.cpp)
+add_executable(OPENGL ${HEADERS} src/main.cpp src/glad.c)
 target_link_libraries(OPENGL ${CONAN_LIBS})
