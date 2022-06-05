@@ -1,0 +1,64 @@
+{
+ "graph_lock": {
+  "nodes": {
+   "0": {
+    "options": "glew:fPIC=True\nglew:shared=False\nglew:with_egl=False\nglfw:fPIC=True\nglfw:shared=False\nglfw:vulkan_static=False",
+    "requires": [
+     "1",
+     "4",
+     "5"
+    ],
+    "path": "../conanfile.txt",
+    "context": "host"
+   },
+   "1": {
+    "ref": "glew/2.2.0",
+    "options": "fPIC=True\nshared=False\nwith_egl=False",
+    "package_id": "757aefe167ea7d98b28bfe4d749c570102e91193",
+    "prev": "0",
+    "requires": [
+     "2",
+     "3"
+    ],
+    "context": "host"
+   },
+   "2": {
+    "ref": "opengl/system",
+    "options": "",
+    "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+    "prev": "0",
+    "context": "host"
+   },
+   "3": {
+    "ref": "glu/system",
+    "options": "",
+    "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+    "prev": "0",
+    "requires": [
+     "2"
+    ],
+    "context": "host"
+   },
+   "4": {
+    "ref": "glfw/3.3.7",
+    "options": "fPIC=True\nshared=False\nvulkan_static=False",
+    "package_id": "15f4a6675772271c84593de28e2f0216f3e89e38",
+    "prev": "0",
+    "requires": [
+     "2"
+    ],
+    "context": "host"
+   },
+   "5": {
+    "ref": "glm/0.9.9.8",
+    "options": "",
+    "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+    "prev": "0",
+    "context": "host"
+   }
+  },
+  "revisions_enabled": false
+ },
+ "version": "0.4",
+ "profile_host": "[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=apple-clang\ncompiler.libcxx=libc++\ncompiler.version=13\nos=Macos\nos_build=Macos\n[options]\n[build_requires]\n[env]\n"
+}
