@@ -1,9 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/mike/Desktop/cpp_projects/opengl -B /Users/mike/Desktop/cpp_projects/opengl/cmake-build-release
--- Conan: Adjusting output directories
--- Conan: Using cmake global configuration
--- Conan: Adjusting default RPATHs Conan policies
--- Conan: Adjusting language standard
--- Current conanbuildinfo.cmake directory: /Users/mike/Desktop/cpp_projects/opengl/cmake-build-release
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/mike/Desktop/cpp_projects/opengl/cmake-build-release
