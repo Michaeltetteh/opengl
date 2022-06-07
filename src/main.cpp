@@ -62,6 +62,7 @@ const char *fragment_shader =
 
 int main()
 {
+    //glfw window setup
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
@@ -79,15 +80,15 @@ int main()
 //    glViewport(0,0,800,600);
     glfwSetFramebufferSizeCallback(window, frame_buffer_size_callback);
 
+    //Glad initialization
     if(!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
     {
         std::cout<<"Failed to initialized glad"<<"\n";
         return -1;
     }
 
+    //compiling and linking shaders to shader program
     unsigned int vertexShader,fragmentShader,shaderProgram;
-
-    //dynamically compiling the shaders
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     //attach shader source to the shader object and compile
     glShaderSource(vertexShader,1,&vertex_shader,NULL);
