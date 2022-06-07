@@ -87,6 +87,9 @@ int main()
         return -1;
     }
 
+//    int vertex_attrib;
+//    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS,&vertex_attrib);
+//    std::cout<<"Maximum number of vertex attributes supported: "<<vertex_attrib<<"\n";
     //compiling and linking shaders to shader program
     unsigned int vertexShader,fragmentShader,shaderProgram,fragmentShader2,shaderProgram2;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
