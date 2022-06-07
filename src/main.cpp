@@ -39,12 +39,6 @@ void check_program_compilation_error(GLuint program)
     }
 }
 
-float vertices[] ={
-        -0.5f,-0.5f,0.0f,
-        0.5f,-0.5f,0.0f,
-        0.0f,0.5f,0.0f
-};
-
 
 const char *vertex_shader =
         "#version 330 core \n"
@@ -119,6 +113,12 @@ int main()
 
 
 
+    float vertices[] ={
+            -0.5f,-0.5f,0.0f,
+            0.5f,-0.5f,0.0f,
+            0.0f,0.5f,0.0f
+    };
+
     //creating and binding vertex array object
     unsigned int VAO,VBO;
     glGenVertexArrays(1,&VAO);
@@ -148,8 +148,8 @@ int main()
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES,0,3);
 
-        glfwPollEvents();
         glfwSwapBuffers(window);
+        glfwPollEvents();
 
     }
 
