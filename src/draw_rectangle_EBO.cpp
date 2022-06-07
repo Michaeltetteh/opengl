@@ -149,6 +149,15 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER,0);
     glBindVertexArray(0);
 
+    /**
+     * configure opengl to draw wireframe polygons.
+     * Wireframe mode To draw your triangles in wireframe mode, you can configure how OpenGL draws
+     * its primitives via glPolygonMode(GL_FRONT_AND_BACK, GL_LINE). The first argument says we want
+     * to apply it to the front and back of all triangles and the second line tells us to draw them as lines.
+     * Any subsequent drawing calls will render the triangles in wireframe mode until we set it back to its
+     * default using glPolygonMode(GL_FRONT_AND_BACK, GL_FILL).
+     **/
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     //render loop
     while (!glfwWindowShouldClose(window))
@@ -161,8 +170,8 @@ int main()
         //use program
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
-        glDrawElements(GL_LINE_LOOP,6,GL_UNSIGNED_INT,0);
-//        glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
+//        glDrawElements(GL_LINE_LOOP,6,GL_UNSIGNED_INT,0);
+        glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
