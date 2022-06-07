@@ -133,10 +133,12 @@ int main()
     glGenBuffers(1,&EBO); //gen element buffer object
 
     //bind VBO
+    //copy our vertices array in a vertex buffer for OpenGL to use
     glBindBuffer(GL_ARRAY_BUFFER,VBO);
     glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_STATIC_DRAW);
 
     //bind EBO
+    //copy our index array in an element buffer for OpenGL to use
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);
 
@@ -148,6 +150,7 @@ int main()
     glBindVertexArray(0);
 
 
+    //render loop
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
