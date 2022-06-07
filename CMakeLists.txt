@@ -7,5 +7,6 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 set(HEADERS include/glad/glad.h include/KHR/khrplatform.h)
 
-add_executable(OPENGL ${HEADERS} src/main.cpp src/glad.c)
+#add_executable(OPENGL ${HEADERS} src/draw_triangle.cpp src/glad.c)
+add_executable(OPENGL ${HEADERS} src/draw_rectangle_EBO.cpp src/glad.c)
 target_link_libraries(OPENGL ${CONAN_LIBS})
