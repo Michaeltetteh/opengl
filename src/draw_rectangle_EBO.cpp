@@ -132,9 +132,11 @@ int main()
     glGenBuffers(1,&VBO);
     glGenBuffers(1,&EBO); //gen element buffer object
 
+    //bind VBO
     glBindBuffer(GL_ARRAY_BUFFER,VBO);
     glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_STATIC_DRAW);
 
+    //bind EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);
 
