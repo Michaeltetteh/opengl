@@ -161,7 +161,8 @@ int main()
         //use program
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
+        glDrawElements(GL_LINE_LOOP,6,GL_UNSIGNED_INT,0);
+//        glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
