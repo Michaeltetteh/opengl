@@ -43,21 +43,26 @@ void check_program_compilation_error(GLuint program)
 const char *vertex_shader =
         "#version 330 core \n"
         "layout (location=0) in vec3 pos;\n"
+        "out vec4 fragColor1,fragColor2;\n"
         "void main()\n"
         "{\n"
         "   gl_Position = vec4(pos.x,pos.y,pos.z, 1.0);\n"
+        "   fragColor1 = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+        "   fragColor2 = vec4(1.0f, 1.0f, 0.0f, 0.0f);\n"
         "}\n";
 const char *fragment_shader =
         "#version 330 core\n"
-        "out vec4 fragColor;\n"
+        "out vec4 fragColor;"
+        "in vec4 fragColor1;\n"
         "void main(){\n"
-        " fragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+        " fragColor = fragColor1;\n"
         "}\n";
 const char *fragment_shader2 =
         "#version 330 core\n"
         "out vec4 fragColor;\n"
+        "in vec4 fragColor2;"
         "void main(){\n"
-        " fragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);\n"
+        " fragColor = fragColor2;\n"
         "}\n";
 
 int main()
