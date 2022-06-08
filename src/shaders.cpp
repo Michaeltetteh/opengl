@@ -44,11 +44,9 @@ void check_program_compilation_error(GLuint program)
 const char *vertex_shader =
         "#version 330 core \n"
         "layout (location=0) in vec3 pos;\n"
-        "out vec4 fragColor2;\n"
         "void main()\n"
         "{\n"
         "   gl_Position = vec4(pos, 1.0);\n"
-        "   //fragColor2 = vec4(1.0f, 1.0f, 0.0f, 0.0f);\n"
         "}\n";
 
 const char *fragment_shader =
@@ -155,13 +153,18 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        float timeVal = glfwGetTime();
-        float greenValue = (sin(timeVal) /2.0f) + 0.5f;
-        int vertexColorLocation = glGetUniformLocation(shaderProgram,"ourColor");
-
         //use program
         glUseProgram(shaderProgram);
+
+        //color gradient
+        float timeVal = glfwGetTime();
+        float greenValue = (sin(timeVal) /2.0f) + 0.5f;
+        //std::cout<<"Time(s): "<<timeVal<<" greenval: "<<greenValue<<"Sine(t): "<< sin(timeVal)<<"\n";
+        int vertexColorLocation = glGetUniformLocation(shaderProgram,"ourColor");
+
+        //                  uniform location        R          G           B          A
         glUniform4f(vertexColorLocation,0.0f,greenValue,0.0f,1.0f);
+
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES,0,3);
 
