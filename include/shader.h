@@ -10,15 +10,21 @@
 class Shader
 {
 public:
-    unsigned int ID; //program id
-
     Shader(const char *vertexPath, const char *fragmentPath);
-    void use();
 
+    void use();
     // utility uniform functions
     void setBool(const std::string &name, bool value) const;
+
     void setInt(const std::string &name, int value) const;
     void setFloat(const std::string &name, float value) const;
+
+    const unsigned int getProgram();
+
+private:
+    unsigned int ID; //program id
+
+
 };
 
 #endif //OPENGL_SHADER_H

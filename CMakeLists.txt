@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.2)
 project(OPENGL)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
+file(GLOB shaders src/shaders/*.shader)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
@@ -13,5 +14,5 @@ set(SOURCE src/shader.cpp)
 #add_executable(OPENGL ${HEADERS} src/exercise1.cpp src/glad.c)
 #add_executable(OPENGL ${HEADERS} src/exercise2.cpp src/glad.c)
 #add_executable(OPENGL ${HEADERS} src/exercise3.cpp src/glad.c)
-add_executable(OPENGL ${HEADERS} ${SOURCE} src/shaders.cpp src/glad.c)
+add_executable(OPENGL ${HEADERS} ${SOURCE} ${shaders} src/shaders.cpp src/glad.c)
 target_link_libraries(OPENGL ${CONAN_LIBS})
