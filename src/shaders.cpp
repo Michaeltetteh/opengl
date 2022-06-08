@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include "../include/shader.h"
-#include <filesystem> //path c++17
+//#include <filesystem> //path c++17
 
 
 void frame_buffer_size_callback(GLFWwindow *window,int w,int h)
