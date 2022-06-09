@@ -16,13 +16,12 @@ public:
     ~Application();
 
     static void frame_buffer_size_callback(GLFWwindow *window,int w,int h);
+    void processInput();
+
 
     GLFWwindow *window;
 
 };
-
-#endif //OPENGL_APPLICATION_H
-
 
 Application::Application(int width, int height,std::string title="OpenGl Window")
 {
@@ -58,3 +57,11 @@ Application::~Application()
 {
     glfwTerminate();
 }
+
+void Application::processInput()
+{
+    if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window,true);
+}
+
+#endif //OPENGL_APPLICATION_H

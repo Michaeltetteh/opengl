@@ -1,3 +1,2 @@
-//
-// Created by mike on 09/06/2022.
-//
+#define STB_IMAGE_IMPLEMENTATION
+#include "../include/stb_image.h"

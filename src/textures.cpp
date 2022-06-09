@@ -1,20 +1,16 @@
 #include <GLFW/glfw3.h>
 #include "../include/shader.h"
 #include "../include/application.h"
+#include "../include/stb_image.h"
 
-void processInput(GLFWwindow *window)
-{
-    if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window,true);
-}
 
 int main()
 {
     Application app(800,600,"App Window");
 
     Shader shader(
-            "/Users/mike/Desktop/cpp_projects/opengl/src/shaders/vertex_shader.shader",
-            "/Users/mike/Desktop/cpp_projects/opengl/src/shaders/fragment_shader.shader"
+            "/Users/mike/Desktop/cpp_projects/opengl/src/shaders/vertex.shader",
+            "/Users/mike/Desktop/cpp_projects/opengl/src/shaders/fragment.shader"
     );
 
 
@@ -55,7 +51,7 @@ int main()
 
     while (!glfwWindowShouldClose(app.window))
     {
-        processInput(app.window);
+        app.processInput();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
