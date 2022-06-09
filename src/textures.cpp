@@ -1,8 +1,4 @@
-#include <iostream>
 #include <GLFW/glfw3.h>
-#include <string>
-#include <algorithm>
-#include <cmath>
 #include "../include/shader.h"
 #include "../include/application.h"
 
