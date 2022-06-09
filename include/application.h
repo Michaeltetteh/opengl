@@ -6,7 +6,7 @@
 #include <string>
 
 /**
- * Sets up opengl application(creates window(s) and initializes glad
+ * Sets up opengl application(creates glfw window(s) and initializes glad)
  *
  * */
 class Application
