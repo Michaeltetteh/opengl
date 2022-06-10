@@ -102,7 +102,7 @@ int main()
     }
 
     //deallocate all resources
-    glDeleteProgram(shader.getProgram());
+//    glDeleteProgram(shader.getProgram());
     glDeleteBuffers(1,&VBO);
     glDeleteVertexArrays(1,&VAO);
 

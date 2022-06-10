@@ -114,3 +114,8 @@ const unsigned int Shader::getProgram()
 {
     return ID;
 }
+
+Shader::~Shader()
+{
+    glDeleteProgram(ID);
+}
