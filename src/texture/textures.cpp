@@ -1,7 +1,7 @@
 #include <GLFW/glfw3.h>
-#include "../include/shader.h"
-#include "../include/application.h"
-#include "../include/stb_image.h"
+#include "../../include/shader.h"
+#include "../../include/application.h"
+#include "../../include/stb_image.h"
 
 
 int main()
@@ -9,8 +9,8 @@ int main()
     Application app(800,600,"App Window");
 
     Shader shader(
-            "/Users/mike/Desktop/cpp_projects/opengl/src/shaders/texVertex.shader",
-            "/Users/mike/Desktop/cpp_projects/opengl/src/shaders/textureFrag.shader"
+            "/Users/mike/Desktop/cpp_projects/opengl/src/texture/shaders/texVertex.shader",
+            "/Users/mike/Desktop/cpp_projects/opengl/src/texture/shaders/textureFrag.shader"
     );
 
     float vertices[] ={
@@ -85,6 +85,7 @@ int main()
     glGenTextures(2,&texture2);
     glActiveTexture(GL_TEXTURE1);
     glBindBuffer(GL_TEXTURE_2D,texture2);
+    stbi_set_flip_vertically_on_load(true);
     data = stbi_load(
             "/Users/mike/Desktop/cpp_projects/opengl/resources/textures/awesomeface.png",
             &width,

@@ -1,10 +1,10 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include "../include/glad/glad.h"
+#include "../../include/glad/glad.h"
 #include <string>
 #include <algorithm>
 #include <cmath>
-#include "../include/shader.h"
+#include "../../include/shader.h"
 //#include <filesystem> //path c++17
 
 

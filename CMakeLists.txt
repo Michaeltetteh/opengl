@@ -26,5 +26,5 @@ set(LIBS
 #add_executable(OPENGL ${HEADERS} src/exercise3.cpp src/glad.c)
 #add_executable(OPENGL ${HEADERS} ${SOURCE} ${shaders} src/shaders.cpp src/glad.c)
 
-add_executable(OPENGL ${HEADERS} ${LIBS} src/textures.cpp src/glad.c)
+add_executable(OPENGL ${HEADERS} ${LIBS} src/texture/textures.cpp src/glad.c)
 target_link_libraries(OPENGL ${CONAN_LIBS})
