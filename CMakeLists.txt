@@ -3,12 +3,9 @@ project(OPENGL)
 
 set(CMAKE_CXX_STANDARD 17)
 
-file(GLOB shaders src/shaders/*.shader)
+
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
-
-
-file(GLOB SHADERS src/shaders/*.shader)
 
 
 set(HEADERS
@@ -28,5 +25,6 @@ set(LIBS
 #add_executable(OPENGL ${HEADERS} src/exercise2.cpp src/glad.c)
 #add_executable(OPENGL ${HEADERS} src/exercise3.cpp src/glad.c)
 #add_executable(OPENGL ${HEADERS} ${SOURCE} ${shaders} src/shaders.cpp src/glad.c)
-add_executable(OPENGL ${HEADERS} ${LIBS} ${shaders} src/textures.cpp src/glad.c)
+
+add_executable(OPENGL ${HEADERS} ${LIBS} src/textures.cpp src/glad.c)
 target_link_libraries(OPENGL ${CONAN_LIBS})
