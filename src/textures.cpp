@@ -107,7 +107,8 @@ int main()
 
     //use program
     shader.use();
-    glUniform1i(glGetUniformLocation(shader.getProgram(),"Texture1"),0);
+    //glUniform1i(glGetUniformLocation(shader.getProgram(),"Texture1"),0);
+    shader.setInt("Texture1",0);
     shader.setInt("Texture2",1);
 
     while (!glfwWindowShouldClose(app.window))
