@@ -17,6 +17,7 @@ public:
 
     static void frame_buffer_size_callback(GLFWwindow *window,int w,int h);
     void processInput();
+    void processInputTextureMix(float &);
 
 
     GLFWwindow *window;
@@ -62,6 +63,26 @@ void Application::processInput()
 {
     if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window,true);
+
+}
+
+void Application::processInputTextureMix(float &val)
+{
+    if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window,true);
+
+    if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS)
+    {
+        val += 0.001f;
+        if(val >= 1.0f)
+            val = 1.0f;
+    }
+    if(glfwGetKey(window,GLFW_KEY_DOWN) == GLFW_PRESS)
+    {
+        val -= 0.001f;
+        if(val <= 0.0f)
+            val = 0.0f;
+    }
 }
 
 #endif //OPENGL_APPLICATION_H

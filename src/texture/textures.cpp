@@ -13,6 +13,8 @@ int main()
             "/Users/mike/Desktop/cpp_projects/opengl/src/texture/shaders/textureFrag.shader"
     );
 
+    float mixFloat = 2.0f;
+
     float vertices[] ={
             //          positions          ||            colors             ||  texture coordinates
             0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 1.0f, 1.0f,        // top right
@@ -114,12 +116,13 @@ int main()
 
     while (!glfwWindowShouldClose(app.window))
     {
-        app.processInput();
+        app.processInputTextureMix(mixFloat);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         shader.use();
+        shader.setFloat("mixFloat",mixFloat);
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
