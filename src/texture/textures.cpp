@@ -13,7 +13,7 @@ int main()
             "/Users/mike/Desktop/cpp_projects/opengl/src/texture/shaders/textureFrag.shader"
     );
 
-    float mixFloat = 2.0f;
+    float mixFloat = 1.0f;
 
     float vertices[] ={
             //          positions          ||            colors             ||  texture coordinates
