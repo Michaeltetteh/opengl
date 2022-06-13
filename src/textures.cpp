@@ -26,7 +26,6 @@ int main()
             1, 2, 3  // second triangle
     };
 
-
     //creating and binding vertex array object
     unsigned int VAO,VBO,EBO;
     glGenVertexArrays(1,&VAO);
@@ -59,16 +58,18 @@ int main()
 
     //add texture
     int width,height,nChannels;
+    unsigned int texture,texture2;
+
+    glGenTextures(1,&texture);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D,texture);
+
     unsigned char *data = stbi_load(
             "/Users/mike/Desktop/cpp_projects/opengl/resources/textures/container.jpg",
             &width,
             &height,
             &nChannels,
             0);
-
-    unsigned int texture;
-    glGenTextures(1,&texture);
-    glBindTexture(GL_TEXTURE_2D,texture);
 
     if(data)
     {
@@ -81,6 +82,33 @@ int main()
     }
     stbi_image_free(data);
 
+    glGenTextures(2,&texture2);
+    glActiveTexture(GL_TEXTURE1);
+    glBindBuffer(GL_TEXTURE_2D,texture2);
+    data = stbi_load(
+            "/Users/mike/Desktop/cpp_projects/opengl/resources/textures/awesomeface.png",
+            &width,
+            &height,
+            &nChannels,
+            0);
+    if(data)
+    {
+        glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout<<"Failed to load texture2"<<"\n";
+    }
+
+    stbi_image_free(data);
+
+
+
+    //use program
+    shader.use();
+    glUniform1i(glGetUniformLocation(shader.getProgram(),"Texture1"),0);
+    shader.setInt("Texture2",1);
 
     while (!glfwWindowShouldClose(app.window))
     {
@@ -89,9 +117,7 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glBindTexture(GL_TEXTURE_2D,texture);
-        //use program
-        shader.use();
+//        glBindTexture(GL_TEXTURE_2D,texture);
 
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -102,7 +128,7 @@ int main()
     }
 
     //deallocate all resources
-//    glDeleteProgram(shader.getProgram());
+    //glDeleteProgram(shader.getProgram());
     glDeleteBuffers(1,&VBO);
     glDeleteVertexArrays(1,&VAO);
 
