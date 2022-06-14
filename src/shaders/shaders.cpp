@@ -7,7 +7,6 @@
 #include "../../include/shader.h"
 //#include <filesystem> //path c++17
 
-
 void frame_buffer_size_callback(GLFWwindow *window,int w,int h)
 {
     glViewport(0,0,w,h);
