@@ -9,8 +9,8 @@ int main()
     Application app(800,600,"App Window");
 
     Shader shader(
-            "/Users/mike/Desktop/cpp_projects/opengl/src/texture/shaders/texVertex.shader",
-            "/Users/mike/Desktop/cpp_projects/opengl/src/texture/shaders/textureFrag.shader"
+            "shaders/texVertex.shader",
+            "shaders/textureFrag.shader"
     );
 
     float mixFloat = 1.0f;
@@ -67,7 +67,7 @@ int main()
     glBindTexture(GL_TEXTURE_2D,texture);
 
     unsigned char *data = stbi_load(
-            "/Users/mike/Desktop/cpp_projects/opengl/resources/textures/container.jpg",
+            "resources/textures/container.jpg",
             &width,
             &height,
             &nChannels,
@@ -89,7 +89,7 @@ int main()
     glBindBuffer(GL_TEXTURE_2D,texture2);
     stbi_set_flip_vertically_on_load(true);
     data = stbi_load(
-            "/Users/mike/Desktop/cpp_projects/opengl/resources/textures/awesomeface.png",
+            "resources/textures/awesomeface.png",
             &width,
             &height,
             &nChannels,

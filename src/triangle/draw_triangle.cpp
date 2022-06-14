@@ -1,6 +1,6 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include "../include/glad/glad.h"
+#include "../../include/glad/glad.h"
 #include <string>
 #include <algorithm>
 
@@ -113,43 +113,27 @@ int main()
 
 
 
-    float vertices1[] ={
-            -0.2f,-0.2f,0.0f,
-            0.2f,-0.2f,0.0f,
-            0.0f,0.2f,0.0f
-    };
-    float vertices2[] ={
-            0.3f,0.3f,0.0f,
-            0.8f,0.3f,0.0f,
-            0.5f,0.8f,0.0f
+    float vertices[] ={
+            -0.5f,-0.5f,0.0f,
+            0.5f,-0.5f,0.0f,
+            0.0f,0.5f,0.0f
     };
 
     //creating and binding vertex array object
-    unsigned int VAOs[2],VBOs[2];
-    glGenVertexArrays(1,&VAOs[0]);
-    glBindVertexArray(VAOs[0]);
+    unsigned int VAO,VBO;
+    glGenVertexArrays(1,&VAO);
+    glBindVertexArray(VAO);
     //creating memory in the GPU for the vertex data to be stored
-    glGenBuffers(1,&VBOs[0]);
-    glBindBuffer(GL_ARRAY_BUFFER,VBOs[0]);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices1),vertices1,GL_STATIC_DRAW);
+    glGenBuffers(1,&VBO);
+    glBindBuffer(GL_ARRAY_BUFFER,VBO);
+    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_STATIC_DRAW);
 
     //linking vertex attributes
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),(void*)0);
     glEnableVertexAttribArray(0);
 
-    glGenVertexArrays(1,&VAOs[1]);
-    glBindVertexArray(VAOs[1]);
-    //creating memory in the GPU for the vertex data to be stored
-    glGenBuffers(1,&VBOs[1]);
-    glBindBuffer(GL_ARRAY_BUFFER,VBOs[1]);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices2),vertices2,GL_STATIC_DRAW);
-
-    //linking vertex attributes
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),(void*)0);
-    glEnableVertexAttribArray(0);
-
-//    glBindBuffer(GL_ARRAY_BUFFER,0);
-//    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER,0);
+    glBindVertexArray(0);
 
 
     while (!glfwWindowShouldClose(window))
@@ -161,10 +145,7 @@ int main()
 
         //use program
         glUseProgram(shaderProgram);
-        glBindVertexArray(VAOs[0]);
-        glDrawArrays(GL_TRIANGLES,0,3);
-
-        glBindVertexArray(VAOs[1]);
+        glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES,0,3);
 
         glfwSwapBuffers(window);
@@ -174,8 +155,8 @@ int main()
 
     //deallocate all resources
     glDeleteProgram(shaderProgram);
-    glDeleteBuffers(1,&VBOs[0]);
-    glDeleteVertexArrays(1,&VAOs[0]);
+    glDeleteBuffers(1,&VBO);
+    glDeleteVertexArrays(1,&VAO);
 
     glfwTerminate();
 

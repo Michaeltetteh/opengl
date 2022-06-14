@@ -47,8 +47,8 @@ int main()
     }
 
     Shader shader(
-        "/Users/mike/Desktop/cpp_projects/opengl/src/shaders/vertex.shader",
-        "/Users/mike/Desktop/cpp_projects/opengl/src/shaders/fragment.shader"
+        "shaders/vertex.shader",
+        "shaders/fragment.shader"
     );
 
 

@@ -26,5 +26,28 @@ set(LIBS
 #add_executable(OPENGL ${HEADERS} src/exercise3.cpp src/glad.c)
 #add_executable(OPENGL ${HEADERS} ${SOURCE} ${shaders} src/shaders.cpp src/glad.c)
 
-add_executable(OPENGL ${HEADERS} ${LIBS} src/texture/textures.cpp src/glad.c)
+#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/texture/shaders/textureFrag.shader DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin/)
+#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/texture/shaders/texVertex.shader DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin/)
+
+macro(copy_files files)
+    foreach(file ${files})
+        message(STATUS "Copying resource ${file}")
+        file(COPY ${file} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin/shaders)
+    endforeach()
+endmacro()
+
+macro(copy_resources dirs)
+    foreach(dir ${dirs})
+        string(REGEX REPLACE "/+$" "" dirclean "${dir}")
+        message(STATUS "Copying resource ${dirclean}")
+        file(COPY ${dirclean} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin/)
+    endforeach()
+endmacro()
+
+copy_resources(resources/)
+copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/texture/shaders/)
+copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/shaders/shaders/)
+
+
+add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/texture/textures.cpp src/glad.c)
 target_link_libraries(OPENGL ${CONAN_LIBS})
