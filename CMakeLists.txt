@@ -19,13 +19,6 @@ set(LIBS
         src/shader.cpp
         src/stb_image.cpp)
 
-#add_executable(OPENGL ${HEADERS} src/draw_triangle.cpp src/glad.c)
-#add_executable(OPENGL ${HEADERS} src/draw_rectangle_EBO.cpp src/glad.c)
-#add_executable(OPENGL ${HEADERS} src/exercise1.cpp src/glad.c)
-#add_executable(OPENGL ${HEADERS} src/exercise2.cpp src/glad.c)
-#add_executable(OPENGL ${HEADERS} src/exercise3.cpp src/glad.c)
-#add_executable(OPENGL ${HEADERS} ${SOURCE} ${shaders} src/shaders.cpp src/glad.c)
-
 #file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/texture/shaders/textureFrag.shader DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin/)
 #file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/texture/shaders/texVertex.shader DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin/)
 
@@ -49,5 +42,14 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/texture/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/shaders/shaders/)
 
 
-add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/texture/textures.cpp src/glad.c)
+#add_executable(OPENGL ${HEADERS} src/draw_triangle.cpp src/glad.c)
+#add_executable(OPENGL ${HEADERS} src/draw_rectangle_EBO.cpp src/glad.c)
+#add_executable(OPENGL ${HEADERS} src/exercise1.cpp src/glad.c)
+#add_executable(OPENGL ${HEADERS} src/exercise2.cpp src/glad.c)
+#add_executable(OPENGL ${HEADERS} src/exercise3.cpp src/glad.c)
+#add_executable(OPENGL ${HEADERS} ${SOURCE} ${shaders} src/shaders.cpp src/glad.c)
+#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/texture/textures.cpp src/glad.c)
+add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/transformation/glm.cpp src/glad.c)
+#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/transformation/transformation.cpp src/glad.c)
+
 target_link_libraries(OPENGL ${CONAN_LIBS})
