@@ -20,7 +20,7 @@ public:
     void setInt(const std::string &name, int value) const;
     void setFloat(const std::string &name, float value) const;
 
-    const unsigned int getProgram();
+    unsigned int getProgram() const;
 
 private:
     unsigned int ID; //program id

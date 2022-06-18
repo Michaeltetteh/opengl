@@ -23,7 +23,7 @@ int main()
      * | 0.0f   0.0f  0.0f   1.0f |      | 1.0f |       | 1.0f + 1.0f |   | 1.0f | w
      * */
     glm::vec4 vec(1.0f,0.0f,0.0f,1.0f);
-    glm::mat4 trans(1.0f);
+    glm::mat4 trans(1.0f);  // identity matrix
     trans = glm::translate(trans,glm::vec3(1.0f,1.0f,0.0));
     vec = trans * vec;
 

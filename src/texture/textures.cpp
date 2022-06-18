@@ -84,7 +84,7 @@ int main()
     }
     stbi_image_free(data);
 
-    glGenTextures(2,&texture2);
+    glGenTextures(1,&texture2);
     glActiveTexture(GL_TEXTURE1);
     glBindBuffer(GL_TEXTURE_2D,texture2);
     stbi_set_flip_vertically_on_load(true);
