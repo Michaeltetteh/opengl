@@ -132,11 +132,16 @@ int main()
         glm::mat4 view = glm::mat4 (1.0f);
         glm::mat4 projection = glm::mat4 (1.0f);
 
-        model = glm::rotate(model,static_cast<float>(glfwGetTime()),glm::vec3(1.0f,0.0f,0.0f));
+        model = glm::rotate(model,glm::radians(-55.0f),glm::vec3(1.0f,0.0f,0.0f));
+        view = glm::translate(view,glm::vec3(0.0f,0.0f,-3.0f));
+        projection = glm::perspective(glm::radians(45.0f),800.0f/600.0f,1.0f,100.0f);
 
         //unsigned int uniformlocation = glGetUniformLocation(shader.getProgram(), "model");
         //glUniformMatrix4fv(uniformlocation,1,GL_FALSE,glm::value_ptr(model));
         shader.setMat4("model",model);
+        shader.setMat4("view",view);
+        shader.setMat4("projection",projection);
+
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
 
@@ -145,8 +150,6 @@ int main()
         glfwPollEvents();
     }
 
-    // optional: de-allocate all resources once they've outlived their purpose:
-    // ------------------------------------------------------------------------
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
