@@ -155,7 +155,7 @@ int main()
         trans2 = glm::translate(trans2,glm::vec3(0.5f,0.5f,0.0f));
         trans2 = glm::scale(trans2,glm::vec3(-fig,-fig,fig));
         std::cout<<"fig = "<<fig <<"\tfig_inv = "<<-fig<<"\n";
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, &trans2[0][0]);
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans2));
         glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
 
 
