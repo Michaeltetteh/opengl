@@ -194,12 +194,13 @@ int main()
             float angle;
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model,cubePositions[i]);
-            model = glm::rotate(model,
-                                [&i,&angle](){
-                                    (i % 3 == 0)? angle = (float)glfwGetTime() * glm::radians(20.0f):angle = glm::radians(0.0f);
-                                    return angle;
-                                }(),
-                                glm::vec3(0.3f, 0.3f, 0.5f));
+            model = glm::rotate(
+                model,
+                [&i,&angle](){
+                    (i % 3 == 0)? angle = (float)glfwGetTime() * glm::radians(20.0f):angle = glm::radians(0.0f);
+                    return angle;
+                }(),glm::vec3(0.3f, 0.3f, 0.5f));
+            
             shader.setMat4("model",model);
             glDrawArrays(GL_TRIANGLES,0,36);
         }
