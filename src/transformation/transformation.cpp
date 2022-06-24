@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 
 int main()
@@ -129,9 +130,13 @@ int main()
 
         // create transformations
         glm::mat4 trans = glm::mat4(1.0f);
-        trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-        trans = glm::translate(trans,glm::vec3(0.5f,-0.5f,0.0f));
+        //trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
         trans = glm::scale(trans,glm::vec3(0.5f,0.5f,0.0f));
+        trans = glm::translate(trans,glm::vec3(0.2f,-0.2f,0.0f));
+        trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.5f, 0.5f, 0.5f));
+
+        //std::cout<<glfwGetTime()<< " radians => "<<glm::radians(glfwGetTime())<<"\n";
+        //std::cout<< glm::to_string(trans)<<"\n";
 
         // get matrix's uniform location and set matrix
         shader.use();
