@@ -196,7 +196,7 @@ int main()
             model = glm::translate(model,cubePositions[i]);
             model = glm::rotate(
                 model,
-                [&](){
+                [&]{
                     (i % 3 == 0)? angle = (float)glfwGetTime() * glm::radians(20.0f):angle = glm::radians(0.0f);
                     return angle;
                 }(),glm::vec3(0.3f, 0.3f, 0.5f));
