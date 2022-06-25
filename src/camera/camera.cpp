@@ -4,7 +4,6 @@
 #include "../../include/stb_image.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-//#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>
 
 float vertices[] = {
@@ -62,7 +61,7 @@ glm::vec3 cubePositions[] = {
         glm::vec3( 1.5f,  2.0f,  -2.5f),
         glm::vec3( 1.5f,  0.2f,  -1.5f),
         glm::vec3(-1.3f,  1.0f,  -1.5f)
-    };
+};
 
 int main()
 {
@@ -73,8 +72,8 @@ int main()
     // build and compile shader program
     // ------------------------------------
     Shader shader(
-            "shaders/CoordinateSysVertexShader.shader",
-            "shaders/CoordinateSysFragmentShader.shader");
+            "shaders/CameraSysVertexShader.shader",
+            "shaders/CameraFragmentShader.shader");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -175,15 +174,19 @@ int main()
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
 
-        glm::mat4 view = glm::mat4 (1.0f);
+//        glm::mat4 view = glm::mat4 (1.0f);
         glm::mat4 projection = glm::mat4 (1.0f);
 
-        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+//        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
         projection = glm::perspective(glm::radians(50.0f), (float)800 / (float)600, 1.0f,
                                       100.0f);
-//        std::cout<<glm::to_string(view);
-        //unsigned int uniformlocation = glGetUniformLocation(shader.getProgram(), "model");
-        //glUniformMatrix4fv(uniformlocation,1,GL_FALSE,glm::value_ptr(model));
+        glm::mat4 view;
+        float radius = 10.0f;
+        float camX = glm::sin(glfwGetTime()) * radius;
+        float camZ = glm::cos(glfwGetTime()) * radius;
+        view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0),
+                           glm::vec3(0.0, 1.0, 0.0));
+        std::cout<<"camX = "<<camX<<"\n"<<"camZ = "<<camZ<<"\n";
         shader.setMat4("view",view);
         shader.setMat4("projection",projection);
 
@@ -194,12 +197,12 @@ int main()
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model,cubePositions[i]);
             model = glm::rotate(
-                model,
-                [&]{
-                    (i % 3 == 0)? angle = (float)glfwGetTime() * glm::radians(20.0f):angle = glm::radians(0.0f);
-                    return angle;
-                }(),glm::vec3(0.3f, 0.3f, 0.5f));
-            
+                    model,
+                    [&]{
+                        (i % 3 == 0)? angle = (float)glfwGetTime() * glm::radians(20.0f):angle = glm::radians(0.0f);
+                        return angle;
+                    }(),glm::vec3(0.3f, 0.3f, 0.5f));
+
             shader.setMat4("model",model);
             glDrawArrays(GL_TRIANGLES,0,36);
         }
