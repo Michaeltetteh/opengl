@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 project(OPENGL)
 
 set(CMAKE_CXX_STANDARD 17)
-
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 

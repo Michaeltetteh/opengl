@@ -4,7 +4,7 @@
 #include "../../include/stb_image.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/string_cast.hpp>
+//#include <glm/gtx/string_cast.hpp>
 
 float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -66,7 +66,7 @@ glm::vec3 cubePositions[] = {
 
 int main()
 {
-    Application app(800,600,"Transformation");
+    Application app("Camera");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -163,7 +163,7 @@ int main()
         // input
         // -----
         app.processCameraInput();
-        float currentFrame = glfwGetTime();
+        auto currentFrame = static_cast<float>(glfwGetTime());
         app.deltaTime = currentFrame - app.lastFrame;
         app.lastFrame = currentFrame;
 
@@ -178,20 +178,11 @@ int main()
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
 
-//        glm::mat4 view = glm::mat4 (1.0f);
         glm::mat4 projection = glm::mat4 (1.0f);
-
-//        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
-        projection = glm::perspective(glm::radians(Application::fov), (float)800 / (float)600, 1.0f,
+        projection = glm::perspective(glm::radians(Application::camera.Zoom), (float)800 / (float)600, 1.0f,
                                       100.0f);
-        glm::mat4 view;
-        //float radius = 10.0f;
-        //float camX = glm::sin(glfwGetTime()) * radius;
-        //float camZ = glm::cos(glfwGetTime()) * radius;
-        //view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0),
-        //                   glm::vec3(0.0, 1.0, 0.0));
-        view = glm::lookAt(Application::cameraPos,Application::cameraPos + Application::cameraFront,
-                           Application::cameraUp);
+        glm::mat4 view = Application::camera.GetViewMatrix();
+
         shader.setMat4("view",view);
         shader.setMat4("projection",projection);
 
