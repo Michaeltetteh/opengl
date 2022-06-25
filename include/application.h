@@ -5,6 +5,9 @@
 #include <iostream>
 #include <string>
 
+
+
+
 /**
  * Sets up opengl application(creates glfw window(s) and initializes glad)
  *
@@ -17,12 +20,19 @@ public:
 
     static void frame_buffer_size_callback(GLFWwindow *window,int w,int h);
     void processInput();
+    void processCameraInput();
     void processInputTextureMix(float &);
 
 
     GLFWwindow *window;
-
+    static glm::vec3 cameraPos;
+    static glm::vec3 cameraFront;
+    static glm::vec3 cameraUp;
 };
+
+glm::vec3 Application::cameraPos = glm::vec3(0.0f,0.0f,3.0f);
+glm::vec3 Application::cameraFront = glm::vec3(0.0f,0.0f,-1.0f);
+glm::vec3 Application::cameraUp = glm::vec3(0.0f,1.0f,0.0f);
 
 Application::Application(int width, int height,std::string title="OpenGl Window")
 {
@@ -64,6 +74,23 @@ void Application::processInput()
     if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window,true);
 
+}
+
+void Application::processCameraInput()
+{
+    if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window,true);
+
+    const float cameraSpeed = 0.05f;
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        cameraPos += cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        cameraPos -= cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
 void Application::processInputTextureMix(float &val)

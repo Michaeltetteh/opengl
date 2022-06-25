@@ -63,6 +63,7 @@ glm::vec3 cubePositions[] = {
         glm::vec3(-1.3f,  1.0f,  -1.5f)
 };
 
+
 int main()
 {
     Application app(800,600,"Transformation");
@@ -161,7 +162,7 @@ int main()
     {
         // input
         // -----
-        app.processInput();
+        app.processCameraInput();
 
         // render
         // ------
@@ -181,12 +182,13 @@ int main()
         projection = glm::perspective(glm::radians(50.0f), (float)800 / (float)600, 1.0f,
                                       100.0f);
         glm::mat4 view;
-        float radius = 10.0f;
-        float camX = glm::sin(glfwGetTime()) * radius;
-        float camZ = glm::cos(glfwGetTime()) * radius;
-        view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0),
-                           glm::vec3(0.0, 1.0, 0.0));
-        std::cout<<"camX = "<<camX<<"\n"<<"camZ = "<<camZ<<"\n";
+        //float radius = 10.0f;
+        //float camX = glm::sin(glfwGetTime()) * radius;
+        //float camZ = glm::cos(glfwGetTime()) * radius;
+        //view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0),
+        //                   glm::vec3(0.0, 1.0, 0.0));
+        view = glm::lookAt(Application::cameraPos,Application::cameraPos + Application::cameraFront,
+                           Application::cameraUp);
         shader.setMat4("view",view);
         shader.setMat4("projection",projection);
 
