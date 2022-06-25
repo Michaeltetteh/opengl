@@ -28,6 +28,9 @@ public:
     static glm::vec3 cameraPos;
     static glm::vec3 cameraFront;
     static glm::vec3 cameraUp;
+
+    float deltaTime = 0.0f;
+    float lastFrame = 0.0f;
 };
 
 glm::vec3 Application::cameraPos = glm::vec3(0.0f,0.0f,3.0f);
@@ -81,7 +84,7 @@ void Application::processCameraInput()
     if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window,true);
 
-    const float cameraSpeed = 0.05f;
+    const float cameraSpeed = 2.5f * deltaTime;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         cameraPos += cameraSpeed * cameraFront;

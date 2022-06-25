@@ -61,6 +61,5 @@ int main()
     view = glm::lookAt(cameraPos,cameraTarget,up_vec);
     std::cout<<glm::to_string(view)<<"\n";
 
-
     return 0;
 }

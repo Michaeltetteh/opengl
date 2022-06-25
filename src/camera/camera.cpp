@@ -163,6 +163,9 @@ int main()
         // input
         // -----
         app.processCameraInput();
+        float currentFrame = glfwGetTime();
+        app.deltaTime = currentFrame - app.lastFrame;
+        app.lastFrame = currentFrame;
 
         // render
         // ------
