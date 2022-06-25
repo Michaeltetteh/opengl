@@ -12,7 +12,8 @@ set(HEADERS
         include/KHR/khrplatform.h
         include/shader.h
         include/application.h
-        include/stb_image.h)
+        include/stb_image.h
+        include/camera.h)
 
 set(LIBS
         src/shader.cpp

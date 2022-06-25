@@ -1,7 +1,7 @@
 #ifndef OPENGL_APPLICATION_H
 #define OPENGL_APPLICATION_H
 #include <GLFW/glfw3.h>
-#include "../include/glad/glad.h"
+#include "glad/glad.h"
 #include <iostream>
 #include <string>
 
@@ -23,6 +23,7 @@ public:
     void processCameraInput();
     void processInputTextureMix(float &);
     static void mouse_callback(GLFWwindow *window,double xpos,double ypos);
+    static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
     GLFWwindow *window;
     static glm::vec3 cameraPos;
@@ -34,6 +35,7 @@ public:
     static float lastX, lastY;
     static float yaw,pitch;
     static bool firstMouse;
+    static float fov;
 };
 
 float Application::lastX = 400;
@@ -41,6 +43,7 @@ float Application::lastY = 300;
 float Application::yaw = -90.0f;
 float Application::pitch = 0.0f;
 bool Application::firstMouse = true;
+float Application::fov = 45.0f;
 
 glm::vec3 Application::cameraPos = glm::vec3(0.0f,0.0f,3.0f);
 glm::vec3 Application::cameraFront = glm::vec3(0.0f,0.0f,-1.0f);
@@ -145,6 +148,14 @@ void Application::mouse_callback(GLFWwindow *window, double xpos, double ypos)
     cameraFront = glm::normalize(direction);
 }
 
+void Application::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    fov -= (float)yoffset;
+    if (fov < 1.0f)
+        fov = 1.0f;
+    if (fov > 45.0f)
+        fov = 45.0f;
+}
 
 void Application::processInputTextureMix(float &val)
 {
