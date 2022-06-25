@@ -22,7 +22,7 @@ public:
     void processInput();
     void processCameraInput();
     void processInputTextureMix(float &);
-
+    static void mouse_callback(GLFWwindow *window,double xpos,double ypos);
 
     GLFWwindow *window;
     static glm::vec3 cameraPos;
@@ -31,7 +31,16 @@ public:
 
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
+    static float lastX, lastY;
+    static float yaw,pitch;
+    static bool firstMouse;
 };
+
+float Application::lastX = 400;
+float Application::lastY = 300;
+float Application::yaw = -90.0f;
+float Application::pitch = 0.0f;
+bool Application::firstMouse = true;
 
 glm::vec3 Application::cameraPos = glm::vec3(0.0f,0.0f,3.0f);
 glm::vec3 Application::cameraFront = glm::vec3(0.0f,0.0f,-1.0f);
@@ -55,11 +64,14 @@ Application::Application(int width, int height,std::string title="OpenGl Window"
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, frame_buffer_size_callback);
+    glfwSetInputMode(window,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window,mouse_callback);
 
     if(!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
     {
         std::cout<<"Failed to initialized glad"<<"\n";
     }
+
 }
 
 void Application::frame_buffer_size_callback(GLFWwindow *window, int w, int h)
@@ -79,6 +91,11 @@ void Application::processInput()
 
 }
 
+void mouse_callback(GLFWwindow *window, double xpos, double ypos)
+{
+
+}
+
 void Application::processCameraInput()
 {
     if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -95,6 +112,39 @@ void Application::processCameraInput()
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
+
+void Application::mouse_callback(GLFWwindow *window, double xpos, double ypos)
+{
+    if(firstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos;
+    lastY = ypos;
+    lastX = xpos;
+
+    const float sensitivity = 0.5f;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+
+    yaw += xoffset;
+    pitch += yoffset;
+
+    if(pitch > 89.0f)
+        pitch = 89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f;
+
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    direction.y = sin(glm::radians(pitch));
+    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    cameraFront = glm::normalize(direction);
+}
+
 
 void Application::processInputTextureMix(float &val)
 {

@@ -48,7 +48,7 @@ int main()
     glm::vec3 cameraUp = glm::normalize(glm::cross(cameraDirection,cameraRight));
     std::cout<<"Camera Up axis = "<<glm::to_string(cameraUp)<<"\n";
 
-    //look at matrix formula
+    //lookAt matrix formula
     glm::mat4 lookat_mat = glm::mat4(
             glm::vec4(cameraRight,0),
             glm::vec4(cameraUp,0),
@@ -56,10 +56,28 @@ int main()
             glm::vec4(0.0f,0.0f,0.0f,1.0f)
     ) * glm::translate(glm::mat4(1.0f), -cameraPos);
 
-    //using glm
+    //using glm for the lookAt matrix
     glm::mat4 view;
     view = glm::lookAt(cameraPos,cameraTarget,up_vec);
     std::cout<<glm::to_string(view)<<"\n";
+
+
+    /**
+     * camera direction vector formula
+     *
+     *     d = | cos(yaw angle) *cos(pitch angle) |
+     *         | sin(pitch angle)                 |
+     *         | sin(yaw angle) * cos(pitch angle)|
+     * */
+    //yaw and pitch values are obtained from mouse/controller input
+    float yaw = -90.0f;
+    float pitch = 45.0f;
+    glm::vec3 direction;
+    direction.x = glm::cos(glm::radians(yaw)) * glm::cos(glm::radians(pitch));
+    direction.y = glm::sin(glm::radians(pitch));
+    direction.z = glm::sin(glm::radians(yaw)) * glm::cos(glm::radians(pitch));
+
+    std::cout<<"camera direction vector = "<<glm::to_string(glm::normalize(direction))<<"\n";
 
     return 0;
 }
