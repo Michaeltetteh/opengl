@@ -50,6 +50,7 @@ float vertices[] = {
         -0.5f,  0.5f, -0.5f,
 };
 
+glm::vec3 LIGHTCOLOR = glm::vec3(1.0f);
 
 int main()
 {
@@ -115,16 +116,19 @@ int main()
         cubeShader.setMat4("view",view);
         cubeShader.setMat4("projection",projection);
         cubeShader.setMat4("model",model);
-        cubeShader.setVec3("Color",glm::vec3(1.0f, 0.5f, 0.31f));
+        //cubeShader.setVec3("Color",glm::vec3(1.0f, 0.5f, 0.31f));
+        cubeShader.setVec3("ObjectColor",glm::vec3(1.0f, 0.5f, 0.31f));
+        cubeShader.setVec3("LightColor",LIGHTCOLOR);
         glDrawArrays(GL_TRIANGLES,0,36);
 
         //Light source
+        lightShader.use();
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(1.2f, 1.0f, 2.0f));
         model = glm::scale(model, glm::vec3(0.2f));
         lightShader.setMat4("view",view);
         lightShader.setMat4("projection",projection);
-        lightShader.setVec3("LColor",glm::vec3(1.0f, 1.0f, 1.0f));
+        lightShader.setVec3("LColor",LIGHTCOLOR);
         lightShader.setMat4("model",model);
         glDrawArrays(GL_TRIANGLES,0,36);
 
