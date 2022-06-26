@@ -60,8 +60,8 @@ int main()
 
     // build and compile shader program
     // ------------------------------------
-    Shader cubeShader("shaders/lighting_scene/cubeVertex.shader","shaders/lighting_scene/cubeFrag.shader");
-    Shader lightShader("shaders/lighting_scene/lightVertex.shader","shaders/lighting_scene/lightFrag.shader");
+    Shader cubeShader("shaders/ambient/cubeVertex.shader","shaders/ambient/cubeFrag.shader");
+    Shader lightShader("shaders/ambient/lightVertex.shader","shaders/ambient/lightFrag.shader");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------

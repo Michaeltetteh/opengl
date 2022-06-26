@@ -1,5 +1,5 @@
 # opengl
-learning graphic programming
+learning graphics programming
 
 ## Prerequisite
 * cmake
