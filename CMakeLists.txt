@@ -43,7 +43,7 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/texture/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/transformation/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/coordinates_system/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/camera/shaders/)
-
+copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/lighting/shaders/)
 
 #add_executable(OPENGL ${HEADERS} src/draw_triangle.cpp src/glad.c)
 #add_executable(OPENGL ${HEADERS} src/draw_rectangle_EBO.cpp src/glad.c)
@@ -57,6 +57,7 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/camera/shaders/)
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/transformation/ex.cpp src/glad.c)
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/coordinates_system/coordinate_system.cpp src/glad.c)
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/coordinates_system/3d.cpp src/glad.c)
-add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/camera/camera.cpp src/glad.c)
+#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/camera/camera.cpp src/glad.c)
+add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/lighting.cpp src/glad.c)
 
 target_link_libraries(OPENGL ${CONAN_LIBS})

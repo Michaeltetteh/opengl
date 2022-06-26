@@ -79,5 +79,19 @@ int main()
 
     std::cout<<"camera direction vector = "<<glm::to_string(glm::normalize(direction))<<"\n";
 
+
+    //lighting
+    glm::vec3 whiteLight(1.0f, 1.0f, 1.0f);
+    glm::vec3 greenLight(0.0f, 1.0f, 0.0f);
+    glm::vec3 redLight(1.0f, 0.0f, 0.0f);
+    glm::vec3 blueLight(0.0f, 0.0f, 1.0f);
+
+    glm::vec3 toyColor(1.0f, 0.5f, 0.31f);
+
+    std::cout<<"\ntoyColor * whiteLight = "<<glm::to_string(whiteLight * toyColor)<<"\n";
+    std::cout<<"toyColor * greenLight = "<<glm::to_string(greenLight * toyColor)<<"\n";
+    std::cout<<"toyColor * redLight = "<<glm::to_string(redLight * toyColor)<<"\n";
+    std::cout<<"toyColor * blueLight = "<<glm::to_string(blueLight * toyColor)<<"\n";
+
     return 0;
 }
