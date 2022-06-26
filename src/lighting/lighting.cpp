@@ -65,8 +65,10 @@ int main()
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     unsigned int VBO, CUBEVAO,LIGHTSRCVAO;
-    glGenVertexArrays(1, &CUBEVAO);
     glGenBuffers(1, &VBO);
+
+    // cube VAO
+    glGenVertexArrays(1, &CUBEVAO);
     glBindVertexArray(CUBEVAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -76,6 +78,7 @@ int main()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,3 * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
 
+    //light VAO
     glGenVertexArrays(1, &LIGHTSRCVAO);
     glBindVertexArray(LIGHTSRCVAO);
 
@@ -104,7 +107,7 @@ int main()
 
         //CUBE
         cubeShader.use();
-        glm::mat4 projection = glm::mat4 (1.0f);
+        glm::mat4 projection = glm::mat4(1.0f);
         projection = glm::perspective(glm::radians(Application::camera.Zoom), (float)800 / (float)600, 1.0f,100.0f);
         glm::mat4 view = Application::camera.GetViewMatrix();
         glm::mat4 model = glm::mat4(1.0f);
@@ -131,6 +134,7 @@ int main()
     }
 
     glDeleteVertexArrays(1, &CUBEVAO);
+    glDeleteVertexArrays(1, &LIGHTSRCVAO);
     glDeleteBuffers(1, &VBO);
 
     return 0;
