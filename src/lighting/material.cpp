@@ -54,6 +54,14 @@ float vertices[] = {
 glm::vec3 LIGHTCOLOR = glm::vec3(1.0f);
 glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, 2.0f);
 
+
+struct Emerald{
+    glm::vec3 ambient = glm::vec3(0.0215f,0.1745f,0.0215f);
+    glm::vec3 diffuse = glm::vec3(	0.07568f,0.61424f,0.07568f);
+    glm::vec3 specular = glm::vec3(0.633f,0.727811f,0.633f);
+    float shininess = 0.6f * 128;
+};
+
 int main()
 {
     Application app("Lighting");
@@ -129,10 +137,19 @@ int main()
         cubeShader.setVec3("ViewPosition",Application::camera.Position);
         cubeShader.setMat4("model",model);
 
-        cubeShader.setVec3("material.ambient",glm::vec3(1.0f, 0.5f, 0.31f));
-        cubeShader.setVec3("material.diffuse",glm::vec3(1.0f, 0.5f, 0.31f));
-        cubeShader.setVec3("material.specular",glm::vec3( 0.5f, 0.5f, 0.5f));
-        cubeShader.setFloat("material.shininess",32.0f);
+//        cubeShader.setVec3("material.ambient",glm::vec3(1.0f, 0.5f, 0.31f));
+//        cubeShader.setVec3("material.diffuse",glm::vec3(1.0f, 0.5f, 0.31f));
+//        cubeShader.setVec3("material.specular",glm::vec3( 0.5f, 0.5f, 0.5f));
+//        cubeShader.setFloat("material.shininess",32.0f);
+//        glm::vec3 turquoise_ambient = glm::vec3(0.1f,0.18725f,0.1745f);
+//        glm::vec3 turquoise_diffuse = glm::vec3(0.396f,0.74151f,0.69102f);
+//        glm::vec3 turquoise_specular = glm::vec3(0.297254f,0.30829f,0.306678f);
+
+        Emerald emerald;
+        cubeShader.setVec3("material.ambient",emerald.ambient);
+        cubeShader.setVec3("material.diffuse",emerald.diffuse);
+        cubeShader.setVec3("material.specular",emerald.specular);
+        cubeShader.setFloat("material.shininess",emerald.shininess);
 
         glm::vec3 lightColor;
         lightColor.x = (float)glm::sin(glfwGetTime() * 2.0f);
@@ -141,8 +158,8 @@ int main()
         glm::vec3 ambientColor = lightColor * glm::vec3(0.2f);
         glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
 
-        cubeShader.setVec3("light.ambient",ambientColor);
-        cubeShader.setVec3("light.diffuse",diffuseColor);
+        cubeShader.setVec3("light.ambient",glm::vec3(1.0f));
+        cubeShader.setVec3("light.diffuse",glm::vec3(1.0f));
         cubeShader.setVec3("light.specular",glm::vec3(1.0f));
         cubeShader.setVec3("light.position",lightPos);
         //cubeShader.setVec3("Color",glm::vec3(1.0f, 0.5f, 0.31f));
@@ -157,6 +174,7 @@ int main()
         lightShader.setMat4("view",view);
         lightShader.setMat4("projection",projection);
         lightShader.setVec3("LColor",LIGHTCOLOR);
+        //lightShader.setVec3("LColor",diffuseColor);
         lightShader.setMat4("model",model);
 
         glBindVertexArray(LIGHTSRCVAO);
