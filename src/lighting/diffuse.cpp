@@ -125,6 +125,8 @@ int main()
         cubeShader.setVec3("LightPosition",lightPos);
         cubeShader.setMat4("view",view);
         cubeShader.setMat4("projection",projection);
+
+        model = glm::rotate(model,(float)glfwGetTime() *glm::radians(40.0f),glm::vec3(0.0f,1.0f,0.0f));
         cubeShader.setMat4("model",model);
         //cubeShader.setVec3("Color",glm::vec3(1.0f, 0.5f, 0.31f));
         glBindVertexArray(CUBEVAO);
