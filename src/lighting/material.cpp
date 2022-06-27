@@ -128,12 +128,21 @@ int main()
         cubeShader.setMat4("projection",projection);
         cubeShader.setVec3("ViewPosition",Application::camera.Position);
         cubeShader.setMat4("model",model);
+
         cubeShader.setVec3("material.ambient",glm::vec3(1.0f, 0.5f, 0.31f));
         cubeShader.setVec3("material.diffuse",glm::vec3(1.0f, 0.5f, 0.31f));
         cubeShader.setVec3("material.specular",glm::vec3( 0.5f, 0.5f, 0.5f));
         cubeShader.setFloat("material.shininess",32.0f);
-        cubeShader.setVec3("light.ambient",glm::vec3(0.0f,0.2f,0.0f));
-        cubeShader.setVec3("light.diffuse",glm::vec3(0.0f,0.5f,0.0f));
+
+        glm::vec3 lightColor;
+        lightColor.x = glm::sin(glfwGetTime() * 2.0f);
+        lightColor.y = glm::sin(glfwGetTime() * 0.7f);
+        lightColor.z = glm::sin(glfwGetTime() * 1.3f);
+        glm::vec3 ambientColor = lightColor * glm::vec3(0.2f);
+        glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
+
+        cubeShader.setVec3("light.ambient",ambientColor);
+        cubeShader.setVec3("light.diffuse",diffuseColor);
         cubeShader.setVec3("light.specular",glm::vec3(1.0f));
         cubeShader.setVec3("light.position",lightPos);
         //cubeShader.setVec3("Color",glm::vec3(1.0f, 0.5f, 0.31f));
