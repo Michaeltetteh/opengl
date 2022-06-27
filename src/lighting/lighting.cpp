@@ -119,6 +119,8 @@ int main()
         //cubeShader.setVec3("Color",glm::vec3(1.0f, 0.5f, 0.31f));
         cubeShader.setVec3("ObjectColor",glm::vec3(1.0f, 0.5f, 0.31f));
         cubeShader.setVec3("LightColor",LIGHTCOLOR);
+
+        glBindVertexArray(CUBEVAO);
         glDrawArrays(GL_TRIANGLES,0,36);
 
         //Light source
@@ -130,6 +132,8 @@ int main()
         lightShader.setMat4("projection",projection);
         lightShader.setVec3("LColor",LIGHTCOLOR);
         lightShader.setMat4("model",model);
+
+        glBindVertexArray(LIGHTSRCVAO);
         glDrawArrays(GL_TRIANGLES,0,36);
 
 
