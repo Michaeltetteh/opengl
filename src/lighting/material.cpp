@@ -137,14 +137,6 @@ int main()
         cubeShader.setVec3("ViewPosition",Application::camera.Position);
         cubeShader.setMat4("model",model);
 
-//        cubeShader.setVec3("material.ambient",glm::vec3(1.0f, 0.5f, 0.31f));
-//        cubeShader.setVec3("material.diffuse",glm::vec3(1.0f, 0.5f, 0.31f));
-//        cubeShader.setVec3("material.specular",glm::vec3( 0.5f, 0.5f, 0.5f));
-//        cubeShader.setFloat("material.shininess",32.0f);
-//        glm::vec3 turquoise_ambient = glm::vec3(0.1f,0.18725f,0.1745f);
-//        glm::vec3 turquoise_diffuse = glm::vec3(0.396f,0.74151f,0.69102f);
-//        glm::vec3 turquoise_specular = glm::vec3(0.297254f,0.30829f,0.306678f);
-
         Emerald emerald;
         cubeShader.setVec3("material.ambient",emerald.ambient);
         cubeShader.setVec3("material.diffuse",emerald.diffuse);
