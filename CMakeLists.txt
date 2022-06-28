@@ -13,7 +13,8 @@ set(HEADERS
         include/shader.h
         include/application.h
         include/stb_image.h
-        include/camera.h)
+        include/camera.h
+        include/utils.h)
 
 set(LIBS
         src/shader.cpp
