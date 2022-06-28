@@ -145,12 +145,11 @@ int main()
         glm::vec3 ambientColor = lightColor * glm::vec3(0.2f);
         glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
 
-        cubeShader.setVec3("light.ambient",glm::vec3(1.0f));
-        cubeShader.setVec3("light.diffuse",glm::vec3(1.0f));
+        cubeShader.setVec3("light.ambient",glm::vec3(0.2f));
+        cubeShader.setVec3("light.diffuse",glm::vec3(0.3f));
         cubeShader.setVec3("light.specular",glm::vec3(1.0f));
         cubeShader.setVec3("light.position",lightPos);
 
-        cubeShader.setVec3("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
         cubeShader.setFloat("material.shininess", 64.0f);
 
         glActiveTexture(GL_TEXTURE0);
