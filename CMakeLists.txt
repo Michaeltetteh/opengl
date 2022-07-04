@@ -70,6 +70,7 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/lighting/shaders/)
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/directional_light.cpp src/glad.c)
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/point_light_attenuation.cpp src/glad.c)
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/spotlight.cpp src/glad.c)
-add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/spotlight_soft_edges.cpp src/glad.c)
+#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/spotlight_soft_edges.cpp src/glad.c)
+add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/multiple_light_source.cpp src/glad.c)
 
 target_link_libraries(OPENGL ${CONAN_LIBS})
