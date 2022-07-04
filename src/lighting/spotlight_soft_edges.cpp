@@ -77,12 +77,12 @@ int main()
 
     // build and compile shader program
     // ------------------------------------
-    Shader cubeShader("shaders/spotlight/cubeVertex.shader","shaders/spotlight/cubeFrag.shader");
-    Shader lightShader("shaders/spotlight/lightVertex.shader","shaders/spotlight/lightFrag.shader");
+    Shader cubeShader("shaders/spotlight_soft_edges/cubeVertex.shader","shaders/spotlight_soft_edges/cubeFrag.shader");
+    Shader lightShader("shaders/spotlight_soft_edges/lightVertex.shader","shaders/spotlight_soft_edges/lightFrag.shader");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    unsigned int VBO, CUBEVAO,LIGHTSRCVAO;
+    unsigned int VBO, CUBEVAO;//,LIGHTSRCVAO;
     glGenBuffers(1, &VBO);
 
     // cube VAO
@@ -103,8 +103,8 @@ int main()
     glEnableVertexAttribArray(2);
 
     //light VAO
-    glGenVertexArrays(1, &LIGHTSRCVAO);
-    glBindVertexArray(LIGHTSRCVAO);
+//    glGenVertexArrays(1, &LIGHTSRCVAO);
+//    glBindVertexArray(LIGHTSRCVAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -146,8 +146,8 @@ int main()
         cubeShader.setMat4("view",view);
         cubeShader.setMat4("projection",projection);
         cubeShader.setVec3("ViewPosition",Application::camera.Position);
-        cubeShader.setVec3("light.ambient",glm::vec3(0.2f));
-        cubeShader.setVec3("light.diffuse",glm::vec3(0.3f));
+        cubeShader.setVec3("light.ambient",glm::vec3(0.1f));
+        cubeShader.setVec3("light.diffuse",glm::vec3(0.8f));
         cubeShader.setVec3("light.specular",glm::vec3(1.0f));
         cubeShader.setFloat("light.constant",1.0f);
         cubeShader.setFloat("light.linear",0.09f);
@@ -155,7 +155,8 @@ int main()
         cubeShader.setVec3("light.position",Application::camera.Position);
         cubeShader.setVec3("light.direction",Application::camera.Front);
         cubeShader.setFloat("light.cutoff",glm::cos(glm::radians(12.5f)));
-        cubeShader.setFloat("material.shininess", 64.0f);
+        cubeShader.setFloat("light.outerCutOff",glm::cos(glm::radians(17.5f)));
+        cubeShader.setFloat("material.shininess", 32.0f);
         cubeShader.setVec3("veiwPosition",Application::camera.Position);
 
         glBindVertexArray(CUBEVAO);
@@ -170,11 +171,11 @@ int main()
             cubeShader.setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
-
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, specularMap);
+
 
 
         //Light source
@@ -190,14 +191,14 @@ int main()
 //
 //        glBindVertexArray(LIGHTSRCVAO);
 //        glDrawArrays(GL_TRIANGLES,0,36);
-
+//
 
         glfwSwapBuffers(app.window);
         glfwPollEvents();
     }
 
     glDeleteVertexArrays(1, &CUBEVAO);
-    glDeleteVertexArrays(1, &LIGHTSRCVAO);
+//    glDeleteVertexArrays(1, &LIGHTSRCVAO);
     glDeleteBuffers(1, &VBO);
 
     return 0;
