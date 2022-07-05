@@ -15,7 +15,7 @@ set(HEADERS
         include/stb_image.h
         include/camera.h
         include/utils.h
-        include/assimp)
+        include/mesh.h)
 
 set(LIBS
         src/shader.cpp
