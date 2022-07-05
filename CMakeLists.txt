@@ -14,7 +14,8 @@ set(HEADERS
         include/application.h
         include/stb_image.h
         include/camera.h
-        include/utils.h)
+        include/utils.h
+        include/assimp)
 
 set(LIBS
         src/shader.cpp
@@ -45,6 +46,7 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/transformation/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/coordinates_system/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/camera/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/lighting/shaders/)
+copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/model_loading/shaders/)
 
 
 #add_executable(OPENGL ${HEADERS} src/draw_triangle.cpp src/glad.c)
@@ -71,6 +73,7 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/lighting/shaders/)
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/point_light_attenuation.cpp src/glad.c)
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/spotlight.cpp src/glad.c)
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/spotlight_soft_edges.cpp src/glad.c)
-add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/multiple_light_source.cpp src/glad.c)
+#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/multiple_light_source.cpp src/glad.c)
+add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/model_loading/model_loading.cpp src/glad.c)
 
 target_link_libraries(OPENGL ${CONAN_LIBS})
