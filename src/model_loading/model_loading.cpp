@@ -4,7 +4,7 @@
 #include "../../include/stb_image.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "../../include/utils.h"
+//#include "../../include/utils.h"
 #include "../../include/model.h"
 //#include <glm/gtx/string_cast.hpp>
 

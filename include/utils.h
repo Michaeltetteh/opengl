@@ -3,6 +3,8 @@
 #include <GLFW/glfw3.h>
 #include "stb_image.h"
 #include "glad/glad.h"
+#include <iostream>
+
 // utility function for loading a 2D texture from file
 // ---------------------------------------------------
 unsigned int loadTexture(char const * path)
@@ -15,12 +17,19 @@ unsigned int loadTexture(char const * path)
     if (data)
     {
         GLenum format;
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
+        switch (nrComponents) {
+            case 1:
+                format = GL_RED;
+                break;
+            case 3:
+                format = GL_RGB;
+                break;
+            case 4:
+                format = GL_RGBA;
+                break;
+            default:
+                format = GL_RGB;
+        }
 
         glBindTexture(GL_TEXTURE_2D, textureID);
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
@@ -35,7 +44,7 @@ unsigned int loadTexture(char const * path)
     }
     else
     {
-        std::cout << "Texture failed to load at path: " << path << std::endl;
+        std::cout << "Texture failed to load at path: " << path << "\n";
         stbi_image_free(data);
     }
 
