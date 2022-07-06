@@ -155,7 +155,6 @@ int main()
         cubeShader.setFloat("light.constant",0.0032f);
         cubeShader.setVec3("light.position",lightPos);
         cubeShader.setFloat("material.shininess", 64.0f);
-        cubeShader.setVec3("veiwPosition",Application::camera.Position);
 
         glBindVertexArray(CUBEVAO);
         for(unsigned int i = 0; i < 10; i++)
