@@ -23,9 +23,10 @@ int main()
     // load models
     // -----------
     Model mModel("resources/objects/backpack/backpack.obj");
+    Model CyborgModel("resources/objects/cyborg/cyborg.obj");
 
     // draw in wireframe
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     // render loop
     // -----------
     while (!glfwWindowShouldClose(app.window))
@@ -57,6 +58,11 @@ int main()
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         mModel.Draw(ourShader);
+
+        model = glm::translate(model, glm::vec3(2.0f,2.0f,0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        ourShader.setMat4("model", model);
+        CyborgModel.Draw(ourShader);
 
 
         glfwSwapBuffers(app.window);
