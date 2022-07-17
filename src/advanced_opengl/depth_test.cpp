@@ -65,10 +65,9 @@ float planeVertices[] = {
 int main()
 {
     Application app("Depth Testing");
-    stbi_set_flip_vertically_on_load(true);
 
     glEnable(GL_DEPTH_TEST);
-//    glDepthFunc(GL_ALWAYS);
+    glDepthFunc(GL_LESS);
 
     // build and compile shader program
     // ------------------------------------
@@ -103,6 +102,7 @@ int main()
     // -------------
     unsigned int cubeTexture  = loadTexture("resources/textures/marble.jpg");
     unsigned int floorTexture = loadTexture("resources/textures/metal.png");
+    stbi_set_flip_vertically_on_load(true);
 
     // shader configuration
     // --------------------
