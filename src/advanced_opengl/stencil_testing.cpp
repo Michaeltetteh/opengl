@@ -178,7 +178,7 @@ int main()
         glStencilMask(0x00);
         glDisable(GL_DEPTH_TEST);
         borderShader.use();
-        float scale = 1.1f;
+        float scale = 1.02f;
         // draw slightly scaled up cubes
         glBindVertexArray(cubeVAO);
         glBindTexture(GL_TEXTURE_2D, cubeTexture);
