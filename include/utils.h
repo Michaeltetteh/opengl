@@ -17,6 +17,7 @@ unsigned int loadTexture(char const * path)
     if (data)
     {
         GLenum format;
+        std::cout<<"colorComp = " <<nrComponents<<"\n";
         switch (nrComponents) {
             case 1:
                 format = GL_RED;
@@ -27,8 +28,6 @@ unsigned int loadTexture(char const * path)
             case 4:
                 format = GL_RGBA;
                 break;
-            default:
-                format = GL_RGB;
         }
 
         glBindTexture(GL_TEXTURE_2D, textureID);
