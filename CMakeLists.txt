@@ -79,6 +79,6 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/advanced_opengl/shaders/)
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/model_loading/model_loading.cpp )
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/advanced_opengl/depth_test.cpp )
 #add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/advanced_opengl/stencil_testing.cpp )
-add_executable(opengl ${HEADERS} ${LIBS}  src/advanced_opengl/blending.cpp )
+add_executable(opengl ${HEADERS} ${LIBS} src/advanced_opengl/blending_discard_fragment.cpp)
 
 target_link_libraries(opengl ${CONAN_LIBS})

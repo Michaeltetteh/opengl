@@ -82,7 +82,7 @@ int main()
 
     // build and compile shader program
     // ------------------------------------
-    Shader shader("shaders/blending/vertex.glsl", "shaders/blending/frag.glsl");
+    Shader shader("shaders/blending_discard_fragment/vertex.glsl", "shaders/blending_discard_fragment/frag.glsl");
 
     // cube VAO
     unsigned int cubeVAO, cubeVBO;
