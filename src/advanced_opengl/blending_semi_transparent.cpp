@@ -74,15 +74,19 @@ float transparentVertices[] = {
 };
 int main()
 {
-    Application app("Blending Discarding Fragments");
+    Application app("Rendering Semi Transparent Textures");
 
     //enable depth testing
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
+    //enable blend
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
     // build and compile shader program
     // ------------------------------------
-    Shader shader("shaders/blending_discard_fragment/vertex.glsl", "shaders/blending_discard_fragment/frag.glsl");
+    Shader shader("shaders/blending_semi_transparent/vertex.glsl", "shaders/blending_semi_transparent/frag.glsl");
 
     // cube VAO
     unsigned int cubeVAO, cubeVBO;
@@ -126,18 +130,18 @@ int main()
     // -------------
     unsigned int cubeTexture  = loadTexture("resources/textures/marble.jpg");
     unsigned int floorTexture = loadTexture("resources/textures/metal.png");
-    unsigned int transparentTexture = loadTexture("resources/textures/grass.png"); //RGBA
+    unsigned int transparentTexture = loadTexture("resources/textures/window.png"); //RGBA
     stbi_set_flip_vertically_on_load(true);
 
     //vegetation location
     std::vector<glm::vec3> vegetation
-    {
-        glm::vec3(-1.5f, 0.0f, -0.48f),
-        glm::vec3( 1.5f, 0.0f, 0.51f),
-        glm::vec3( 0.0f, 0.0f, 0.7f),
-        glm::vec3(-0.3f, 0.0f, -2.3f),
-        glm::vec3 (0.5f, 0.0f, -0.6f)
-    };
+            {
+                    glm::vec3(-1.5f, 0.0f, -0.48f),
+                    glm::vec3( 1.5f, 0.0f, 0.51f),
+                    glm::vec3( 0.0f, 0.0f, 0.7f),
+                    glm::vec3(-0.3f, 0.0f, -2.3f),
+                    glm::vec3 (0.5f, 0.0f, -0.6f)
+            };
 
     // shader configuration
     // --------------------
