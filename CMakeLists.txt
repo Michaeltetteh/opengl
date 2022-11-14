@@ -25,6 +25,37 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
  endif()
 
 
+find_package(Git QUIET)
+if(GIT_FOUND AND EXISTS ${PROJECT_SOURCE_DIR}/.git)
+    option(GIT_SUBMODULES "Check submodules during build" ON)
+    if(GIT_SUBMODULES)
+        message(STATUS "Updating submodules")
+        execute_process(
+            COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+            RESULT_VARIABLE GIT_SUBMOD_RESULT
+        )
+        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+            message(FATAL_ERROR "git submodule --init failed with ${GIT_SUBMOD_RESULT}.")
+        endif()
+    endif()
+endif()
+
+
+#Check for all submodules
+if(NOT EXISTS ${PROJECT_SOURCE_DIR}/external/glfw/CMakeLists.txt)
+    message(FATAL_ERROR "glfw submodule was not downloaded, GIT_SUBMODULES was turned off or failed")
+endif()
+
+if(NOT EXISTS ${PROJECT_SOURCE_DIR}/external/assimp/CMakeLists.txt)
+    message(FATAL_ERROR "assimp submodule was not downloaded, GIT_SUBMODULES was turned off or failed")
+endif()
+
+if(NOT EXISTS ${PROJECT_SOURCE_DIR}/external/glm/CMakeLists.txt)
+    message(FATAL_ERROR "glm submodule was not downloaded, GIT_SUBMODULES was turned off or failed")
+endif()
+
+
 set(HEADERS
         include/glad/glad.h
         include/KHR/khrplatform.h
@@ -40,9 +71,6 @@ set(LIBS
         src/shader.cpp
         src/stb_image.cpp
         src/glad.c)
-
-#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/texture/shaders/textureFrag.shader DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin/)
-#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/texture/shaders/texVertex.shader DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin/)
 
 macro(copy_files files)
     foreach(file ${files})
