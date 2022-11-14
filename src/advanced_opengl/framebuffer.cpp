@@ -3,10 +3,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <map>
 #include "../common.h"
-//#include <glm/gtx/string_cast.hpp>
 
-
-float cubeVertices[] = {
+ const float cubeVertices[] = {
         // back face
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // bottom-left
         0.5f, -0.5f, -0.5f,  1.0f, 0.0f, // bottom-right
@@ -51,7 +49,7 @@ float cubeVertices[] = {
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f  // top-left
 };
 
-float planeVertices[] = {
+const float planeVertices[] = {
         // positions          // texture Coords (note we set these higher than 1 (together with GL_REPEAT as texture wrapping mode). this will cause the floor texture to repeat)
         5.0f, -0.5f,  5.0f,  2.0f, 0.0f,
         -5.0f, -0.5f,  5.0f,  0.0f, 0.0f,
@@ -62,19 +60,22 @@ float planeVertices[] = {
         5.0f, -0.5f, -5.0f,  2.0f, 2.0f
 };
 
-float transparentVertices[] = {
-        // positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
-        0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
-        0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
-        1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
 
-        0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
-        1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
-        1.0f,  0.5f,  0.0f,  1.0f,  0.0f
+
+const float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+        // positions   // texCoords
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        -1.0f, -1.0f,  0.0f, 0.0f,
+        1.0f, -1.0f,  1.0f, 0.0f,
+
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        1.0f, -1.0f,  1.0f, 0.0f,
+        1.0f,  1.0f,  1.0f, 1.0f
 };
+
 int main()
 {
-    Application app("Face Culling");
+    Application app("Framebuffer");
 
     //enable depth testing
     glEnable(GL_DEPTH_TEST);
@@ -92,7 +93,8 @@ int main()
 
     // build and compile shader program
     // ------------------------------------
-    Shader shader("shaders/blending_semi_transparent/vertex.glsl", "shaders/blending_semi_transparent/frag.glsl");
+    Shader shader("shaders/frame_buffer/framebuffer_vertx.glsl", "shaders/frame_buffer/framebuffer_fs.glsl");
+    Shader screenShader("shaders/frame_buffer/framebuffer_screen_vertx.glsl", "shaders/frame_buffer/framebuffer_screen_fs.glsl");
 
     // cube VAO
     unsigned int cubeVAO, cubeVBO;
@@ -118,44 +120,60 @@ int main()
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glBindVertexArray(0);
-    // Vegetation
-    unsigned int VegetationVAO, VegetationVBO;
-    glGenVertexArrays(1, &VegetationVAO);
-    glGenBuffers(1, &VegetationVBO);
-    glBindVertexArray(VegetationVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VegetationVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(transparentVertices), &transparentVertices, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glBindVertexArray(0);
 
 
     // load textures
     // -------------
-    unsigned int cubeTexture  = loadTexture("resources/textures/marble.jpg");
+    unsigned int cubeTexture  = loadTexture("resources/textures/container.jpg");
     unsigned int floorTexture = loadTexture("resources/textures/metal.png");
-    unsigned int transparentTexture = loadTexture("resources/textures/window.png"); //RGBA
     stbi_set_flip_vertically_on_load(true);
-
-    //vegetation location
-    std::vector<glm::vec3> windows {
-            glm::vec3(-1.5f, 0.0f, -0.48f),
-            glm::vec3( 1.5f, 0.0f, 0.51f),
-            glm::vec3( 0.0f, 0.0f, 0.7f),
-            glm::vec3(-0.3f, 0.0f, -2.3f),
-            glm::vec3 (0.5f, 0.0f, -0.6f)
-    };
 
     // shader configuration
     // --------------------
     shader.use();
     shader.setInt("texture1", 0);
 
-
     // draw in wireframe
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+
+    //Framebuffer
+    unsigned int framebuffer;
+    glGenFramebuffers(1, &framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);
+
+    //create color attachment texture
+    unsigned int texture;
+    glGenTextures(1,&texture);
+    glBindTexture(GL_TEXTURE_2D,texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 600, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D,0);
+    //attach texture to framebuffer
+    glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,texture,0);
+    //to attach stencil and depth buffer as one texture t the framebuffer
+    //glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, 800, 600, 0,GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+    //glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT,GL_TEXTURE_2D, texture, 0);
+
+    //render buffer attachment
+    unsigned int rbo;
+    glGenRenderbuffers(1,&rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER,rbo);
+    glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH24_STENCIL8,800,600);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    //attach rbo to depth and stencil attachment of the framebuffer
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER,GL_DEPTH_STENCIL_ATTACHMENT,GL_RENDERBUFFER,rbo);
+
+
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    {
+        //framebuffer successfully created
+        std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!\n";
+    }
+
+    glBindFramebuffer(0,framebuffer);
+    glDeleteFramebuffers(1,&framebuffer); //delete framebuffer
 
     // render loop
     // -----------
@@ -206,31 +224,14 @@ int main()
 
 
 
-        std::map<float, glm::vec3> sorted;
-        for(unsigned int i =0; i < windows.size(); i++){
-            float distance = glm::length(Application::camera.Position - windows[i]);
-            sorted[distance] = windows[i];
-        }
-
-        glBindVertexArray(VegetationVAO);
-        glBindTexture(GL_TEXTURE_2D, transparentTexture);
-        for(std::map<float,glm::vec3>::reverse_iterator it = sorted.rbegin(); it != sorted.rend(); ++it){
-            model = glm::mat4(1.0f);
-            model = glm::translate(model, it->second);
-            shader.setMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 6);
-        }
-
 
         glfwSwapBuffers(app.window);
         glfwPollEvents();
     }
     glDeleteVertexArrays(1, &cubeVAO);
     glDeleteVertexArrays(1, &planeVAO);
-    glDeleteVertexArrays(1, &VegetationVAO);
     glDeleteBuffers(1, &cubeVBO);
     glDeleteBuffers(1, &planeVBO);
-    glDeleteBuffers(1, &VegetationVBO);
 
     return 0;
 }

@@ -129,7 +129,8 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/advanced_opengl/shaders/)
 
 add_subdirectory(external)
 
-add_executable(${PROJECT_NAME} ${LIBS} src/advanced_opengl/face_culling.cpp)
+#add_executable(${PROJECT_NAME} ${LIBS} src/advanced_opengl/face_culling.cpp)
+add_executable(${PROJECT_NAME} ${LIBS} src/advanced_opengl/framebuffer.cpp)
 
 
 target_include_directories(${PROJECT_NAME}
