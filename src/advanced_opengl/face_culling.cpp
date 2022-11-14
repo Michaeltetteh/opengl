@@ -1,15 +1,12 @@
-//
-// Created by mike on 10/09/2022.
-//
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <map>
 #include "../../include/shader.h"
 #include "../../include/application.h"
 #include "../../include/stb_image.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include "../../include/model.h"
 #include "../../include/utils.h"
-#include <map>
 //#include <glm/gtx/string_cast.hpp>
 
 
