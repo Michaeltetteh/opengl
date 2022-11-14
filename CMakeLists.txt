@@ -5,9 +5,24 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+#include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+#conan_basic_setup()
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+     find_library(MYGLLIB OpenGL NAMES OpenGL GL gl DOC "Find GL library" REQUIRED)
+     if(${MYGLLIB} STREQUAL MYGLLIB-NOTFOUND) #if lib not found
+         message(FATAL_ERROR "Could not find library ${MYGLLIB}")
+     else()
+         message(STATUS "found lib ${MYGLLIB}")
+     endif()
+ else()
+     find_library(MYGLLIB gl NAMES GL DOC "Find GL library" REQUIRED)
+     if(${MYGLLIB} STREQUAL MYGLLIB-NOTFOUND) #if lib not found
+         message(FATAL_ERROR "Could not find library ${MYGLLIB}")
+     else()
+         message(STATUS "found lib ${MYGLLIB}")
+     endif()
+ endif()
 
 
 set(HEADERS
@@ -85,6 +100,30 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/advanced_opengl/shaders/)
 #add_executable(opengl ${HEADERS} ${LIBS} src/advanced_opengl/blending_discard_fragment.cpp)
 #add_executable(opengl ${HEADERS} ${LIBS} src/advanced_opengl/math.cpp)
 #add_executable(opengl ${HEADERS} ${LIBS} src/advanced_opengl/blending_semi_transparent.cpp)
-add_executable(opengl ${HEADERS} ${LIBS} src/advanced_opengl/face_culling.cpp)
 
-target_link_libraries(opengl ${CONAN_LIBS})
+add_subdirectory(external)
+message(${CMAKE_CURRENT_SOURCE_DIR})
+add_executable(${PROJECT_NAME} ${LIBS} src/advanced_opengl/face_culling.cpp)
+
+#target_link_libraries(opengl ${CONAN_LIBS})
+
+target_include_directories(${PROJECT_NAME}
+        PUBLIC
+            external/glfw/include
+        PRIVATE
+            external/glm
+        PRIVATE
+            external/assimp/include
+)
+target_link_directories(${PROJECT_NAME}
+        PRIVATE
+            external/glfw/src
+        PRIVATE
+            external/assimp
+)
+
+target_link_libraries(${PROJECT_NAME}
+        ${MYGLLIB}
+        glfw
+        assimp
+)
