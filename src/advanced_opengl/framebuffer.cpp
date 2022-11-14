@@ -1,6 +1,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <map>
 #include "../common.h"
 
@@ -73,28 +75,22 @@ const float quadVertices[] = { // vertex attributes for a quad that fills the en
         1.0f,  1.0f,  1.0f, 1.0f
 };
 
+
 int main()
 {
     Application app("Framebuffer");
 
     //enable depth testing
     glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-
-    //enable blend
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-    //glBlendEquation(GL_FUNC_SUBTRACT);
-
-    //enables face culling
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_FRONT);
-    //glFrontFace(GL_CCW); //winding order default counter-clockwise
 
     // build and compile shader program
     // ------------------------------------
-    Shader shader("shaders/frame_buffer/framebuffer_vertx.glsl", "shaders/frame_buffer/framebuffer_fs.glsl");
-    Shader screenShader("shaders/frame_buffer/framebuffer_screen_vertx.glsl", "shaders/frame_buffer/framebuffer_screen_fs.glsl");
+    Shader shader(
+            "shaders/frame_buffer/framebuffer_vertx.glsl",
+            "shaders/frame_buffer/framebuffer_fs.glsl");
+    Shader screenShader(
+            "shaders/frame_buffer/framebuffer_screen_vertx.glsl",
+            "shaders/frame_buffer/framebuffer_screen_fs.glsl");
 
     // cube VAO
     unsigned int cubeVAO, cubeVBO;
@@ -108,6 +104,7 @@ int main()
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glBindVertexArray(0);
+
     // plane VAO
     unsigned int planeVAO, planeVBO;
     glGenVertexArrays(1, &planeVAO);
@@ -121,17 +118,32 @@ int main()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glBindVertexArray(0);
 
+    // screen quad VAO
+    unsigned int quadVAO, quadVBO;
+    glGenVertexArrays(1, &quadVAO);
+    glGenBuffers(1, &quadVBO);
+    glBindVertexArray(quadVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
 
     // load textures
     // -------------
     unsigned int cubeTexture  = loadTexture("resources/textures/container.jpg");
     unsigned int floorTexture = loadTexture("resources/textures/metal.png");
-    stbi_set_flip_vertically_on_load(true);
+//    stbi_set_flip_vertically_on_load(true);
 
     // shader configuration
     // --------------------
     shader.use();
     shader.setInt("texture1", 0);
+
+    screenShader.use();
+    screenShader.setInt("screenTexture", 0);
 
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -173,7 +185,7 @@ int main()
     }
 
     glBindFramebuffer(0,framebuffer);
-    glDeleteFramebuffers(1,&framebuffer); //delete framebuffer
+//    glDeleteFramebuffers(1,&framebuffer); //delete framebuffer
 
     // render loop
     // -----------
@@ -187,11 +199,13 @@ int main()
         // -----
         app.processCameraInput();
 
-
         // render
         // ------
+        glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+        glEnable(GL_DEPTH_TEST);
+
 
         // set uniforms
         glm::mat4 model = glm::mat4(1.0f);
@@ -209,8 +223,7 @@ int main()
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
 
-
-        // original cubes
+        // cubes
         glBindVertexArray(cubeVAO);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, cubeTexture);
@@ -221,8 +234,18 @@ int main()
         model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
         shader.setMat4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
 
 
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glDisable(GL_DEPTH_TEST);
+        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        screenShader.use();
+        glBindVertexArray(quadVAO);
+        glBindTexture(GL_TEXTURE_2D, texture);	// use the color attachment texture as the texture of the quad plane
+        glDrawArrays(GL_TRIANGLES, 0, 6);
 
 
         glfwSwapBuffers(app.window);
@@ -230,8 +253,12 @@ int main()
     }
     glDeleteVertexArrays(1, &cubeVAO);
     glDeleteVertexArrays(1, &planeVAO);
+    glDeleteVertexArrays(1, &quadVAO);
     glDeleteBuffers(1, &cubeVBO);
     glDeleteBuffers(1, &planeVBO);
+    glDeleteBuffers(1, &quadVBO);
+
 
     return 0;
 }
+
