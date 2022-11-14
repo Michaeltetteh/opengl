@@ -128,7 +128,7 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/advanced_opengl/shaders/)
 #add_executable(opengl ${HEADERS} ${LIBS} src/advanced_opengl/blending_semi_transparent.cpp)
 
 add_subdirectory(external)
-message(${CMAKE_CURRENT_SOURCE_DIR})
+
 add_executable(${PROJECT_NAME} ${LIBS} src/advanced_opengl/face_culling.cpp)
 
 
