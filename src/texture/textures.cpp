@@ -1,7 +1,7 @@
 #include <GLFW/glfw3.h>
-#include "../../include/shader.h"
-#include "../../include/application.h"
-#include "../../include/stb_image.h"
+#include "../app/shader.h"
+#include "../app/application.h"
+#include "stb_image.h"
 
 
 int main()

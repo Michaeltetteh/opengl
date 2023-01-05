@@ -1,12 +1,14 @@
 #include <GLFW/glfw3.h>
+#include "../app/shader.h"
+#include "../app/application.h"
+#include "stb_image.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "../app/utils.h"
 
-#include <map>
-#include "../common.h"
 
- const float cubeVertices[] = {
+
+const float cubeVertices[] = {
         // back face
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // bottom-left
         0.5f, -0.5f, -0.5f,  1.0f, 0.0f, // bottom-right

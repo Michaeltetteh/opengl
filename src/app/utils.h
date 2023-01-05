@@ -1,8 +1,8 @@
 #ifndef OPENGL_UTILS_H
 #define OPENGL_UTILS_H
-#include <GLFW/glfw3.h>
-#include "stb_image.h"
-#include "glad/glad.h"
+#include "GLFW/glfw3.h"
+#include "../../libs/stb_image/stb_image.h"
+#include "../../libs/glad/glad.h"
 #include <iostream>
 
 // utility function for loading a 2D texture from file

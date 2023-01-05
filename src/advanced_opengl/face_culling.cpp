@@ -1,8 +1,13 @@
 #include <GLFW/glfw3.h>
+#include "../app/shader.h"
+#include "../app/application.h"
+#include "stb_image.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "../app/model.h"
+#include "../app/utils.h"
 #include <map>
-#include "../common.h"
+
 //#include <glm/gtx/string_cast.hpp>
 
 

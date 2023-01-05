@@ -1,11 +1,7 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include "../../include/glad/glad.h"
-#include <string>
-#include <algorithm>
-#include <cmath>
-#include "../../include/shader.h"
-//#include <filesystem> //path c++17
+#include "glad.h"
+#include "../app/shader.h"
 
 void frame_buffer_size_callback(GLFWwindow *window,int w,int h)
 {

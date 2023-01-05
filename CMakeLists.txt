@@ -53,23 +53,6 @@ if(NOT EXISTS ${PROJECT_SOURCE_DIR}/external/glm/CMakeLists.txt)
     message(FATAL_ERROR "glm submodule was not downloaded, GIT_SUBMODULES was turned off or failed")
 endif()
 
-
-set(HEADERS
-        include/glad/glad.h
-        include/KHR/khrplatform.h
-        include/shader.h
-        include/application.h
-        include/stb_image.h
-        include/camera.h
-        include/utils.h
-        include/mesh.h
-        include/model.h)
-
-set(LIBS
-        src/shader.cpp
-        src/stb_image.cpp
-        src/glad.c)
-
 macro(copy_files files)
     foreach(file ${files})
         message(STATUS "Copying resource ${file}")
@@ -95,61 +78,24 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/lighting/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/model_loading/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/advanced_opengl/shaders/)
 
-#add_executable(OPENGL ${HEADERS} src/draw_triangle.cpp )
-#add_executable(OPENGL ${HEADERS} src/draw_rectangle_EBO.cpp )
-#add_executable(OPENGL ${HEADERS} src/exercise1.cpp )
-#add_executable(OPENGL ${HEADERS} src/exercise2.cpp )
-#add_executable(OPENGL ${HEADERS} src/exercise3.cpp )
-#add_executable(OPENGL ${HEADERS} ${SOURCE} ${shaders} src/shaders.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/texture/textures.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/transformation/glm.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/transformation/transformation.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/transformation/ex.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/coordinates_system/coordinate_system.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/coordinates_system/3d.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/camera/camera.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/lighting.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/ambient.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/diffuse.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/specular.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/material.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/diffuse_map.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/specular_map.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/directional_light.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/point_light_attenuation.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/spotlight.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/spotlight_soft_edges.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/lighting/multiple_light_source.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/model_loading/model_loading.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/advanced_opengl/depth_test.cpp )
-#add_executable(${PROJECT_NAME} ${HEADERS} ${LIBS} src/advanced_opengl/stencil_testing.cpp )
-#add_executable(opengl ${HEADERS} ${LIBS} src/advanced_opengl/blending_discard_fragment.cpp)
-#add_executable(opengl ${HEADERS} ${LIBS} src/advanced_opengl/math.cpp)
-#add_executable(opengl ${HEADERS} ${LIBS} src/advanced_opengl/blending_semi_transparent.cpp)
 
 add_subdirectory(external)
+add_subdirectory(libs)
 
-#add_executable(${PROJECT_NAME} ${LIBS} src/advanced_opengl/face_culling.cpp)
-add_executable(${PROJECT_NAME} ${LIBS} src/advanced_opengl/framebuffer.cpp)
+set(GLFW_INC_DIR ${OPENGL_SOURCE_DIR}/external/glfw/include)
+set(GLFW_LINK_DIR ${OPENGL_SOURCE_DIR}/external/glfw/include/src)
+
+set(GLM_INC_DIR ${OPENGL_SOURCE_DIR}/external/glm)
+
+set(ASSIMP_INC_DIR ${OPENGL_SOURCE_DIR}/external/assimp/include)
+set(ASSIMP_LINK_DIR ${OPENGL_SOURCE_DIR}/external/assimp/)
+
+set(GLAD_INC_DIR ${OPENGL_SOURCE_DIR}/libs/glad)
+set(GLAD_LINK_DIR ${OPENGL_SOURCE_DIR}/libs/glad)
+
+set(STB_IMAGE_INC_DIR ${OPENGL_SOURCE_DIR}/libs/stb_image)
+set(STB_IMAGE_LINK_DIR ${OPENGL_SOURCE_DIR}/libs/stb_image)
 
 
-target_include_directories(${PROJECT_NAME}
-        PUBLIC
-            external/glfw/include
-        PRIVATE
-            external/glm
-        PRIVATE
-            external/assimp/include
-)
-target_link_directories(${PROJECT_NAME}
-        PRIVATE
-            external/glfw/src
-        PRIVATE
-            external/assimp
-)
 
-target_link_libraries(${PROJECT_NAME}
-        ${MYGLLIB}
-        glfw
-        assimp
-)
+add_subdirectory(src)

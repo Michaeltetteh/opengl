@@ -1,8 +1,8 @@
 #ifndef OPENGL_MESH_H
 #define OPENGL_MESH_H
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 #include <string>
 #include <utility>
 #include <vector>

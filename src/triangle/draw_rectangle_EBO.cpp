@@ -1,6 +1,6 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include "../../include/glad/glad.h"
+#include "glad.h"
 #include <string>
 #include <algorithm>
 

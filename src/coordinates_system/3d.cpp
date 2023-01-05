@@ -1,11 +1,10 @@
 #include <GLFW/glfw3.h>
-#include "../../include/shader.h"
-#include "../../include/application.h"
-#include "../../include/stb_image.h"
+#include "../app/shader.h"
+#include "../app/application.h"
+#include "stb_image.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-//#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/string_cast.hpp>
+
 
 float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,

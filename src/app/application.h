@@ -1,7 +1,7 @@
 #ifndef OPENGL_APPLICATION_H
 #define OPENGL_APPLICATION_H
-#include <GLFW/glfw3.h>
-#include "glad/glad.h"
+#include "GLFW/glfw3.h"
+#include "../../libs/glad/glad.h"
 #include <iostream>
 #include <string>
 #include "camera.h"
