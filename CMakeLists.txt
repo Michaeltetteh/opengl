@@ -83,7 +83,7 @@ add_subdirectory(external)
 add_subdirectory(libs)
 
 set(GLFW_INC_DIR ${OPENGL_SOURCE_DIR}/external/glfw/include)
-set(GLFW_LINK_DIR ${OPENGL_SOURCE_DIR}/external/glfw/include/src)
+set(GLFW_LINK_DIR ${OPENGL_SOURCE_DIR}/external/glfw/src)
 
 set(GLM_INC_DIR ${OPENGL_SOURCE_DIR}/external/glm)
 

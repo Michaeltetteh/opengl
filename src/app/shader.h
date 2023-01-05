@@ -34,6 +34,8 @@ private:
 };
 
 
+
+
 void check_shader_compilation_errors(GLuint shader,std::string shader_type)
 {
     int success;
