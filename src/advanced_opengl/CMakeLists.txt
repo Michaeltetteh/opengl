@@ -2,7 +2,7 @@ project(advanced_opengl)
 
 foreach( _target
         blending_semi_transparent blending_discard_fragment depth_test face_culling math stencil_testing
-        framebuffer frame_buffer_post_processing)
+        framebuffer frame_buffer_post_processing framebuffer_rear_view_mirror)
     add_executable(${_target} ${APPS_HEADERS} ${_target}.cpp)
 
     target_include_directories(${_target}
