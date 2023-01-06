@@ -14,7 +14,7 @@ const unsigned int SCR_HEIGHT = 600;
 
 int main()
 {
-    Application app("Frame-buffer");
+    Application app("Frame-buffer-post-processing");
 
     // configure global opengl state
     // -----------------------------
@@ -23,11 +23,11 @@ int main()
     // build and compile shaders
     // -------------------------
     Shader shader(
-            "shaders/frame_buffer/framebuffer_vertx.glsl",
-            "shaders/frame_buffer/framebuffer_fs.glsl");
+            "shaders/frame_buffer/post_processing_vertx.glsl",
+            "shaders/frame_buffer/post_processing_fs.glsl");
     Shader screenShader(
-            "shaders/frame_buffer/framebuffer_screen_vertx.glsl",
-            "shaders/frame_buffer/framebuffer_screen_fs.glsl");
+            "shaders/frame_buffer/post_processing_screen_vertx.glsl",
+            "shaders/frame_buffer/post_processing_screen_fs.glsl");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -141,7 +141,6 @@ int main()
 
     screenShader.use();
     screenShader.setInt("screenTexture", 0);
-
     // framebuffer configuration
     // -------------------------
     unsigned int framebuffer;
@@ -171,8 +170,13 @@ int main()
 
     // render loop
     // -----------
+    //bool is_inverse = false;
     while (!glfwWindowShouldClose(app.window))
     {
+
+        //is_inverse = !is_inverse;
+        //screenShader.setBool("inverse", is_inverse);
+
         // per-frame time logic
         // --------------------
         auto currentFrame = static_cast<float>(glfwGetTime());

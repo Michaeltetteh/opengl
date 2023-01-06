@@ -1,13 +1,15 @@
-if [ -d build ]; then
-    rm -rf build
-fi
+# if [ -d build ]; then
+#     rm -rf build
+# fi
 
-mkdir -p build
+# mkdir -p build
 
 cd build
 
 cmake -DGLFW_BUILD_DOCS=OFF -DASSIMP_BUILD_TESTS=OFF ..
 cmake --build . --parallel 4
 
-
+    pushd bin
+        ./frame_buffer_post_processing
+    popd
 cd ../
