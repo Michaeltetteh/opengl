@@ -203,7 +203,7 @@ int main()
         glBindTexture(GL_TEXTURE_CUBE_MAP, cubemap);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
         model = glm::scale(model,glm::vec3(0.5f,0.5f,0.5f));
-        model = glm::rotate(model,currentFrame,glm::vec3(0.0f,1.0f,0.0f));
+        // model = glm::rotate(model,currentFrame,glm::vec3(0.0f,1.0f,0.0f));
         shader.setMat4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);

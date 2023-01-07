@@ -7,9 +7,22 @@ in vec3 Position;
 uniform vec3 cameraPos;
 uniform samplerCube skybox;
 
-void main()
+vec3 reflection()
 {
     vec3 I = normalize(Position - cameraPos);
-    vec3 R = reflect(I, normalize(Normal));
+    return reflect(I, normalize(Normal));
+}
+
+vec3 refraction()
+{
+    float ratio = 1.00/1.52; //refractive index of air/ refractive index of glass
+    vec3 I = normalize(Position - cameraPos);
+    return refract(I,normalize(Normal),ratio);
+}
+
+void main()
+{
+    vec3 R = refraction();
+    //vec3 R = reflection() + refraction();
     FragColor = vec4(texture(skybox,R).rgb,1.0);
 }
