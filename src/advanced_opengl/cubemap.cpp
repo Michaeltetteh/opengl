@@ -145,15 +145,33 @@ int main()
     // -------------
     unsigned int cubeTexture  = loadTexture("resources/textures/bricks2.jpg");
 
-    // load cubemap
+    /**
+     *  Texture target 	                Orientation
+     *  GL_TEXTURE_CUBE_MAP_POSITIVE_X 	Right
+     *  GL_TEXTURE_CUBE_MAP_NEGATIVE_X 	Left
+     *  GL_TEXTURE_CUBE_MAP_POSITIVE_Y 	Top
+     *  GL_TEXTURE_CUBE_MAP_NEGATIVE_Y 	Bottom
+     *  GL_TEXTURE_CUBE_MAP_POSITIVE_Z 	Back
+     *  GL_TEXTURE_CUBE_MAP_NEGATIVE_Z 	Front
+     * */
+
     std::vector<std::string> faces = {
-       "resources/textures/skybox/right.jpg",
-       "resources/textures/skybox/left.jpg",
-       "resources/textures/skybox/top.jpg",
-       "resources/textures/skybox/bottom.jpg",
-       "resources/textures/skybox/front.jpg",
-       "resources/textures/skybox/back.jpg"
+       "resources/textures/skybox/fall/posx.jpg",
+       "resources/textures/skybox/fall/negx.jpg",
+       "resources/textures/skybox/fall/posy.jpg",
+       "resources/textures/skybox/fall/negy.jpg",
+       "resources/textures/skybox/fall/posz.jpg",
+       "resources/textures/skybox/fall/negz.jpg"
     };
+  // std::vector<std::string> faces = {
+  //     "resources/textures/skybox/right.jpg",
+  //     "resources/textures/skybox/left.jpg",
+  //     "resources/textures/skybox/top.jpg",
+  //     "resources/textures/skybox/bottom.jpg",
+  //     "resources/textures/skybox/front.jpg",
+  //     "resources/textures/skybox/back.jpg"
+  //  };
+
     unsigned int cubemap = loadCubeMap(faces);
 
     // shader configuration
