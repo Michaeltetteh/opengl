@@ -4,7 +4,7 @@
 #include "stb_image.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "../app/utils.h"
+#include "../app/texture.h"
 
 
 
@@ -62,10 +62,7 @@ float planeVertices[] = {
     -5.0f, -0.5f, -5.0f,  0.0f, 2.0f,
     5.0f, -0.5f, -5.0f,  2.0f, 2.0f
 };
-float quadVertices[] = { 
-    // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-    // NOTE that this plane is now much smaller and at the top of the screen
-    // positions   // texCoords
+float quadVertices[] = {
     -0.3f,  1.0f,  0.0f, 1.0f,
     -0.3f,  0.7f,  0.0f, 0.0f,
     0.3f,  0.7f,  1.0f, 0.0f,
@@ -74,6 +71,7 @@ float quadVertices[] = {
     0.3f,  0.7f,  1.0f, 0.0f,
     0.3f,  1.0f,  1.0f, 1.0f
 };
+
 
 int main()
 {
@@ -132,17 +130,10 @@ int main()
 
    // load textures
    // -------------
-   unsigned int cubeTexture  = loadTexture("resources/textures/container.jpg");
-   unsigned int floorTexture = loadTexture("resources/textures/metal.png");
+   unsigned int cubeTexture  = loadTexture("resources/textures/bricks2.jpg");
+   unsigned int floorTexture = loadTexture("resources/textures/wood.png");
    //stbi_set_flip_vertically_on_load(true);
 
-   // shader configuration
-   // --------------------
-   shader.use();
-   shader.setInt("texture1", 0);
-
-   screenShader.use();
-   screenShader.setInt("screenTexture", 0);
 
    // draw in wireframe
    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -229,13 +220,16 @@ int main()
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, cubeTexture);
         model = glm::translate(model, glm::vec3(-1.0f, 0.0f, -1.0f));
+        model = glm::scale(model,glm::vec3(2.0f,1.0f,1.0f));
         shader.setMat4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
+        model = glm::scale(model,glm::vec3(1.0f,1.0f,2.0f));
         shader.setMat4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
+
 
 
        // second render pass: draw as normal
@@ -253,10 +247,12 @@ int main()
        glActiveTexture(GL_TEXTURE0);
        glBindTexture(GL_TEXTURE_2D, cubeTexture);
        model = glm::translate(model, glm::vec3(-1.0f, 0.0f, -1.0f));
+       model = glm::scale(model,glm::vec3(2.0f,1.0f,1.0f));
        shader.setMat4("model", model);
        glDrawArrays(GL_TRIANGLES, 0, 36);
        model = glm::mat4(1.0f);
        model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
+       model = glm::scale(model,glm::vec3(1.0f,1.0f,2.0f));
        shader.setMat4("model", model);
        glDrawArrays(GL_TRIANGLES, 0, 36);
        // floor

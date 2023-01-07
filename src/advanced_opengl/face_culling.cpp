@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "../app/model.h"
-#include "../app/utils.h"
+#include "../app/texture.h"
 #include <map>
 
 //#include <glm/gtx/string_cast.hpp>
