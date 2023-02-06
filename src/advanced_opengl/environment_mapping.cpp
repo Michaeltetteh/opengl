@@ -166,7 +166,6 @@ int main()
     // shader configuration
     // --------------------
     shader.use();
-    shader.setInt("skybox", 0);
 
     skyboxshader.use();
     skyboxshader.setInt("skybox", 0);
