@@ -24,15 +24,15 @@ void main()
 {
     vec3 R = refraction();
     //vec3 R = reflection() + refraction();
-    FragColor = vec4(texture(skybox,R).rgb,1.0);
+    //FragColor = vec4(texture(skybox,R).rgb,1.0);
 
-    // if(gl_FragCoord.x < 400)
-    //     FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-    // else
-    //     FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+     if(gl_FragCoord.x < 400)
+         FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+     else
+         FragColor = vec4(0.0, 1.0, 0.0, 1.0);
 
-    // if(gl_FrontFacing)
-    //     FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-    // else
-    //     FragColor = vec4(0.1, 0.5, .5, 1.0);
+     if(gl_FrontFacing)
+         FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+     else
+         FragColor = vec4(0.1, 0.5, .5, 1.0);
 }
