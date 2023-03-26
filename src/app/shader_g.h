@@ -14,7 +14,6 @@
 class Shader
 {
 public:
-    unsigned int ID;
     // constructor generates the shader on the fly
     // ------------------------------------------------------------------------
     Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr)
@@ -163,7 +162,13 @@ public:
         glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
     }
 
+    unsigned int getProgram() const
+    {
+        return ID;
+    }
+
 private:
+    unsigned int ID;
     // utility function for checking shader compilation/linking errors.
     // ------------------------------------------------------------------------
     void checkCompileErrors(GLuint shader, std::string type)
