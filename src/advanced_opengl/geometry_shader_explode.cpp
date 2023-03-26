@@ -48,7 +48,7 @@ int main()
 
         // configure transformation matrices
         glm::mat4 projection = glm::perspective(glm::radians(Application::camera.Zoom), (float)800 / (float)600, 0.1f, 100.0f);
-        glm::mat4 view = Application::camera.GetViewMatrix();;
+        glm::mat4 view = Application::camera.GetViewMatrix();
         glm::mat4 model = glm::mat4(1.0f);
         shader.use();
         shader.setMat4("projection", projection);
