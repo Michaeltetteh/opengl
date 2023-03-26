@@ -101,7 +101,7 @@ const float skyboxVertices[] = {
 
 int main()
 {
-    Application app("Cubemap Environment Mapping");
+    Application app("GLSL Uniform Buffer Object");
 
     //enable depth testing
     glEnable(GL_DEPTH_TEST);
