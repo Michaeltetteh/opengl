@@ -2,7 +2,6 @@
 #include "../app/shader_g.h"
 #include "../app/application.h"
 #include "../app/model_g.h"
-#include "stb_image.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
