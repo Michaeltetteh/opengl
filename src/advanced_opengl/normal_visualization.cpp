@@ -11,7 +11,7 @@
 
 int main()
 {
-    Application app("Geometry Shader Explode");
+    Application app("Geometry Shader Normal Visualization");
 
     // configure global opengl state
     // -----------------------------
@@ -27,7 +27,7 @@ int main()
 
     // load models
     // -----------
-    Model backpack("resources/objects/backpack/backpack.obj"); 
+    Model nanosuit("resources/objects/nanosuit/nanosuit.obj"); 
 
     // render loop
     // -----------
@@ -57,7 +57,7 @@ int main()
         shader.setMat4("model", model);
 
         // draw model as usual
-        backpack.Draw(shader);
+        nanosuit.Draw(shader);
 
         // then draw model with normal visualizing geometry shader
         normalShader.use();
@@ -65,7 +65,7 @@ int main()
         normalShader.setMat4("view", view);
         normalShader.setMat4("model", model);
 
-        backpack.Draw(normalShader);
+        nanosuit.Draw(normalShader);
 
 
         glfwSwapBuffers(app.window);
