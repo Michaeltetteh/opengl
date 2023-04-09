@@ -24,6 +24,7 @@ public:
     void setFloat(const std::string &name, float value) const;
     void setMat4(const std::string &name, glm::mat4 value) const;
     void setVec3(const std::string &name, glm::vec3 value) const;
+    void setVec2(const std::string &name, glm::vec2 value) const;
 
     unsigned int getProgram() const;
 
@@ -152,6 +153,10 @@ void Shader::setMat4(const std::string &name, glm::mat4 value) const
 void Shader::setVec3(const std::string &name, glm::vec3 value) const
 {
     glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
+}
+void Shader::setVec2(const std::string &name, glm::vec2 value) const
+{
+    glUniform2fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
 }
 
 unsigned int Shader::getProgram() const

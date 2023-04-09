@@ -10,6 +10,6 @@ cmake -DGLFW_BUILD_DOCS=OFF -DASSIMP_BUILD_TESTS=OFF ..
 cmake --build . --parallel 4
 
     pushd bin
-        ./normal_visualization
+        ./instancing
     popd
 cd ../
