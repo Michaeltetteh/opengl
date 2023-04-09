@@ -25,7 +25,7 @@ int main()
 
     // configure global opengl state
     // -----------------------------
-    // glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
 
     // build and compile our shader program
     // ------------------------------------
@@ -84,16 +84,25 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(app.window))
     {
+
         // input
         // -----
         app.processInput();
+
 
         // render
         // ------
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
         shader.use();
+        //set offsets uniform
+        // for(unsigned int i = 0; i < 100; i++)
+        // {
+        //     shader.setVec2("offsets["+std::to_string(i)+"]", translations[i]);
+        // }
+
         glBindVertexArray(quadVAO);
         glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 100); // 100 triangles of 6 vertices each
         glBindVertexArray(0);
