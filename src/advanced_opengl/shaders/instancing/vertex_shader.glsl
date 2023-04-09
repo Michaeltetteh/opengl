@@ -13,5 +13,6 @@ void main()
     fColor = aColor;  
     // vec2 offset = offsets[gl_InstanceID]; 
     // gl_Position = vec4(aPos + offset, 0.0, 1.0);
+    // vec2 pos = aPos * (gl_InstanceID / 100.0); //downscale quad
     gl_Position = vec4(aPos + aOffset, 0.0, 1.0);
 }
