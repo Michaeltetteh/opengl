@@ -76,7 +76,7 @@ Camera Application::camera{glm::vec3(0.0f,0.0f,3.0f)};
 
 }
 
-[[maybe_unused]] Application::Application( int width,int height,const std::string& title="OpenGl Window")
+[[maybe_unused]] Application::Application( int width,int height,const std::string& title)
 {
     //glfw window setup
     glfwInit();
@@ -93,6 +93,10 @@ Camera Application::camera{glm::vec3(0.0f,0.0f,3.0f)};
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, frame_buffer_size_callback);
 
+    glfwSetInputMode(window,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window,mouse_callback);
+    glfwSetScrollCallback(window, scroll_callback);
+    
     if(!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
     {
         std::cout<<"Failed to initialized glad"<<"\n";
