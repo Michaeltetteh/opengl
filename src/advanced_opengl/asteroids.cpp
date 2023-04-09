@@ -10,7 +10,7 @@
 
 int main()
 {
-    Application app(1280, 720, "Instancing Asteroid");
+    Application app(1280, 720, "Asteroid Render");
 
     // configure global opengl state
     // -----------------------------
@@ -18,7 +18,7 @@ int main()
 
     // build and compile our shader program
     // ------------------------------------
-    Shader shader("shaders/instancing_asteroids/vertex_shader.glsl", "shaders/instancing_asteroids/frag_shader.glsl");
+    Shader shader("shaders/asteroids/vertex_shader.glsl", "shaders/asteroids/frag_shader.glsl");
 
     // load models
     // -----------
