@@ -57,6 +57,9 @@ Camera Application::camera{glm::vec3(0.0f,0.0f,3.0f)};
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
     glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT,GL_TRUE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
+
+    
     window = glfwCreateWindow(D_WIDTH,D_HEIGHT,title.c_str(),nullptr,nullptr);
     if(window == nullptr)
     {
