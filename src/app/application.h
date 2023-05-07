@@ -14,6 +14,9 @@ float lastY = D_HEIGHT / 2.0f;
 bool firstMouse = true;
 
 
+bool blinn = false;
+bool blinnKeyPressed = false;
+
 /**
  * Sets up opengl application(creates glfw window(s) and initializes glad)
  *
@@ -138,6 +141,16 @@ Application::~Application()
         camera.ProcessKeyboard(LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime);
+
+    if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS && !blinnKeyPressed) 
+    {
+        blinn = !blinn;
+        blinnKeyPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_B) == GLFW_RELEASE) 
+    {
+        blinnKeyPressed = false;
+    }
 }
 
 void Application::mouse_callback([[maybe_unused]] GLFWwindow *window, double xposIn, double yposIn)
