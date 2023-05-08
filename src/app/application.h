@@ -1,7 +1,8 @@
 #ifndef OPENGL_APPLICATION_H
 #define OPENGL_APPLICATION_H
+
 #include "GLFW/glfw3.h"
-#include "../../libs/glad/glad.h"
+#include "glad.h"
 #include <iostream>
 #include <string>
 #include "camera.h"
@@ -24,35 +25,37 @@ bool blinnKeyPressed = false;
 class Application
 {
 public:
-    [[maybe_unused]] Application(int width,int height,const std::string& title);
+    explicit Application(int width,int height,const std::string& title);
+    explicit Application(const std::string& title="OpenGl Window");
 
-    [[maybe_unused]] explicit Application(const std::string& title="OpenGl Window");
     ~Application();
 
-    static void frame_buffer_size_callback([[maybe_unused]] GLFWwindow *window,int w,int h);
+    static void frame_buffer_size_callback(GLFWwindow *window,int w,int h);
 
-    [[maybe_unused]] void processInput() const;
+    void processInput() const;
+    void processCameraInput() const;
+    void processInputTextureMix(float &) const;
 
-    [[maybe_unused]] void processCameraInput() const;
 
-    [[maybe_unused]] void processInputTextureMix(float &) const;
-    static void mouse_callback([[maybe_unused]] GLFWwindow *window,double xpos,double ypos);
-    static void scroll_callback([[maybe_unused]] GLFWwindow* window, [[maybe_unused]] double xoffset, double yoffset);
+    static void mouse_callback(GLFWwindow *window,double xpos,double ypos);
+    static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
     GLFWwindow *window;
 
     //timing
     float deltaTime = 0.0f;
-    [[maybe_unused]] float lastFrame = 0.0f;
-
+    float lastFrame = 0.0f;
 
     static Camera camera;
+
+private:
+    void initGlfwGlad(const std::string& title, int width=D_WIDTH, int height=D_HEIGHT);
 
 };
 
 Camera Application::camera{glm::vec3(0.0f,0.0f,3.0f)};
 
-[[maybe_unused]] Application::Application(const std::string& title)
+void Application::initGlfwGlad(const std::string& title, int width, int height)
 {
     //glfw window setup
     glfwInit();
@@ -62,13 +65,13 @@ Camera Application::camera{glm::vec3(0.0f,0.0f,3.0f)};
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT,GL_TRUE);
     glfwWindowHint(GLFW_SAMPLES, 4);
 
-    
-    window = glfwCreateWindow(D_WIDTH,D_HEIGHT,title.c_str(),nullptr,nullptr);
+    window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
     if(window == nullptr)
     {
         std::cout<<"Failed to create window"<<"\n";
         glfwTerminate();
     }
+
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, frame_buffer_size_callback);
     glfwSetInputMode(window,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
@@ -79,39 +82,19 @@ Camera Application::camera{glm::vec3(0.0f,0.0f,3.0f)};
     {
         std::cout<<"Failed to initialized glad"<<"\n";
     }
-
 }
 
-[[maybe_unused]] Application::Application( int width,int height,const std::string& title)
+Application::Application(const std::string& title)
 {
-    //glfw window setup
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT,GL_TRUE);
-    window = glfwCreateWindow(width,height,title.c_str(),nullptr,nullptr);
-    if(window == nullptr)
-    {
-        std::cout<<"Failed to create window"<<"\n";
-        glfwTerminate();
-    }
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, frame_buffer_size_callback);
-
-    glfwSetInputMode(window,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
-    glfwSetCursorPosCallback(window,mouse_callback);
-    glfwSetScrollCallback(window, scroll_callback);
-    
-    if(!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
-    {
-        std::cout<<"Failed to initialized glad"<<"\n";
-    }
-
-
+    initGlfwGlad(title);
 }
 
-void Application::frame_buffer_size_callback([[maybe_unused]] GLFWwindow *window, int w, int h)
+Application::Application( int width,int height,const std::string& title)
+{
+    initGlfwGlad(title, width, height);
+}
+
+void Application::frame_buffer_size_callback(GLFWwindow *window, int w, int h)
 {
     glViewport(0,0,w,h);
 }
@@ -121,14 +104,14 @@ Application::~Application()
     glfwTerminate();
 }
 
-[[maybe_unused]] void Application::processInput() const
+void Application::processInput() const
 {
     if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window,true);
 
 }
 
-[[maybe_unused]] void Application::processCameraInput() const
+void Application::processCameraInput() const
 {
     if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window,true);
@@ -153,7 +136,7 @@ Application::~Application()
     }
 }
 
-void Application::mouse_callback([[maybe_unused]] GLFWwindow *window, double xposIn, double yposIn)
+void Application::mouse_callback(GLFWwindow *window, double xposIn, double yposIn)
 {
     auto xpos = static_cast<float>(xposIn);
     auto ypos = static_cast<float>(yposIn);
@@ -174,12 +157,12 @@ void Application::mouse_callback([[maybe_unused]] GLFWwindow *window, double xpo
     camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
-void Application::scroll_callback([[maybe_unused]] GLFWwindow* window, [[maybe_unused]] double xoffset, double yoffset)
+void Application::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     camera.ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
-[[maybe_unused]] void Application::processInputTextureMix(float &val) const
+void Application::processInputTextureMix(float &val) const
 {
     if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window,true);
