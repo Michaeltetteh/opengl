@@ -9,7 +9,7 @@
 
 // utility function for loading a 2D texture from file
 // ---------------------------------------------------
-unsigned int loadTexture(char const * path)
+unsigned int loadTexture(char const * path, bool gammaCorrection=false)
 {
     unsigned int textureID;
     glGenTextures(1, &textureID);
@@ -19,21 +19,24 @@ unsigned int loadTexture(char const * path)
     if (data)
     {
         GLenum format;
+        GLenum internalFormat;
         std::cout<<"colorComp = " <<nrComponents<<"\n";
         switch (nrComponents) {
             case 1:
-                format = GL_RED;
+                internalFormat = format = GL_RED;
                 break;
             case 3:
+                internalFormat = gammaCorrection ? GL_SRGB : GL_RGB;
                 format = GL_RGB;
                 break;
             case 4:
+                internalFormat = gammaCorrection ? GL_SRGB_ALPHA : GL_RGBA;
                 format = GL_RGBA;
                 break;
         }
 
         glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, format == GL_RGBA ? GL_CLAMP_TO_EDGE : GL_REPEAT);

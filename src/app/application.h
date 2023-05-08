@@ -8,8 +8,9 @@
 #include "camera.h"
 
 
-const unsigned int D_WIDTH = 800;
-const unsigned int D_HEIGHT = 600;
+#define D_WIDTH  800
+#define D_HEIGHT 600
+
 float lastX = D_WIDTH / 2.0f;
 float lastY = D_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -17,6 +18,9 @@ bool firstMouse = true;
 
 bool blinn = false;
 bool blinnKeyPressed = false;
+
+bool gammaEnabled = false;
+bool gammaKeyPressed = false;
 
 /**
  * Sets up opengl application(creates glfw window(s) and initializes glad)
@@ -133,6 +137,16 @@ void Application::processCameraInput() const
     if (glfwGetKey(window, GLFW_KEY_B) == GLFW_RELEASE) 
     {
         blinnKeyPressed = false;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS && !gammaKeyPressed) 
+    {
+        gammaEnabled = !gammaEnabled;
+        gammaKeyPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_G) == GLFW_RELEASE) 
+    {
+        gammaKeyPressed = false;
     }
 }
 

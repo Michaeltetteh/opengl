@@ -21,13 +21,17 @@ const float planeVertices[] = {
 
 int main()
 {
-    Application app("Blinn Phong Lighting");
+    Application app("Gamma Corrections");
 
     glEnable(GL_DEPTH_TEST);
+    // glEnable(GL_FRAMEBUFFER_SRGB);  //gamma correction using GL_FRAMEBUFFER_SRGB: less control.
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // compile shader program
     // ------------------------------------
-    Shader shader("shaders/blinn_phong/vertex.glsl","shaders/blinn_phong/frag.glsl");
+    Shader shader("shaders/gamma_correction/vertex.glsl","shaders/gamma_correction/frag.glsl");
 
     // plane VAO
     unsigned int planeVAO, planeVBO;
@@ -47,6 +51,7 @@ int main()
     // load textures
     // -------------
     unsigned int floorTexture = loadTexture("resources/textures/wood.png");
+    unsigned int floorTextureGammaCorrected = loadTexture("resources/textures/wood.png", true);
     
     // shader configuration
     // --------------------
@@ -55,7 +60,18 @@ int main()
 
     // lighting info
     // -------------
-    glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
+    glm::vec3 lightPositions[] = {
+        glm::vec3(-3.0f, 0.0f, 0.0f),
+        glm::vec3(-1.0f, 0.0f, 0.0f),
+        glm::vec3 (1.0f, 0.0f, 0.0f),
+        glm::vec3 (3.0f, 0.0f, 0.0f)
+    };
+    glm::vec3 lightColors[] = {
+        glm::vec3(0.25),
+        glm::vec3(0.50),
+        glm::vec3(0.75),
+        glm::vec3(1.00)
+    };
 
     // render loop
     // -----------
@@ -71,7 +87,6 @@ int main()
         // -----
         app.processCameraInput();
 
-
         // render
         // ------
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -86,17 +101,17 @@ int main()
 
         // set light uniforms
         shader.setVec3("viewPos", Application::camera.Position);
-        shader.setVec3("lightPos", lightPos);
-        shader.setInt("blinn", blinn);
+        shader.setInt("gamma", gammaEnabled);
+        shader.setVec3("lightPositions", 4, lightPositions);
+        shader.setVec3("lightColors", 4, lightColors);
 
         // floor
         glBindVertexArray(planeVAO);
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, floorTexture);
+        glBindTexture(GL_TEXTURE_2D, gammaEnabled ? floorTextureGammaCorrected : floorTexture);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
-        std::cout << (blinn ? "Blinn-Phong" : "Phong") <<"\n";
-
+        std::cout << (gammaEnabled ? "Gamma enabled" : "Gamma disabled") << "\n";
 
         glfwSwapBuffers(app.window);
         glfwPollEvents();
