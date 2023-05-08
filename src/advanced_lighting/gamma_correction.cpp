@@ -95,7 +95,7 @@ int main()
         // draw objects
         shader.use();
         glm::mat4 projection = glm::perspective(glm::radians(Application::camera.Zoom), (float)1280 / (float)720, 0.1f, 1000.0f);
-        glm::mat4 view = Application::camera.GetViewMatrix();;
+        glm::mat4 view = Application::camera.GetViewMatrix();
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
 
@@ -111,7 +111,7 @@ int main()
         glBindTexture(GL_TEXTURE_2D, gammaEnabled ? floorTextureGammaCorrected : floorTexture);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
-        std::cout << (gammaEnabled ? "Gamma enabled" : "Gamma disabled") << "\n";
+        // std::cout << (gammaEnabled ? "Gamma enabled" : "Gamma disabled") << "\n";
 
         glfwSwapBuffers(app.window);
         glfwPollEvents();

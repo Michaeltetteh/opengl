@@ -1,6 +1,6 @@
 project(advanced_lighting)
 
-foreach( _target blinn_phong gamma_correction)
+foreach( _target blinn_phong gamma_correction shadow_mapping_depth shadow_mapping_base)
     add_executable(${_target} ${APPS_HEADERS} ${_target}.cpp)
 
     target_include_directories(${_target}
