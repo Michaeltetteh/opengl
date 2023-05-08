@@ -21,7 +21,7 @@ const float planeVertices[] = {
 
 int main()
 {
-    Application app("Gamma Corrections");
+    Application app("Gamma Correction");
 
     glEnable(GL_DEPTH_TEST);
     // glEnable(GL_FRAMEBUFFER_SRGB);  //gamma correction using GL_FRAMEBUFFER_SRGB: less control.
