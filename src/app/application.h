@@ -19,6 +19,9 @@ bool firstMouse = true;
 bool blinn = false;
 bool blinnKeyPressed = false;
 
+bool shadows = true;
+bool shadowsKeyPressed = false;
+
 bool gammaEnabled = false;
 bool gammaKeyPressed = false;
 
@@ -66,7 +69,10 @@ void Application::initGlfwGlad(const std::string& title, int width, int height)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
     glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT,GL_TRUE);
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+
     glfwWindowHint(GLFW_SAMPLES, 4);
 
     window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
@@ -78,8 +84,8 @@ void Application::initGlfwGlad(const std::string& title, int width, int height)
 
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, frame_buffer_size_callback);
-    glfwSetInputMode(window,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
-    glfwSetCursorPosCallback(window,mouse_callback);
+    glfwSetInputMode(window, GLFW_CURSOR,GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
     if(!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
@@ -147,6 +153,16 @@ void Application::processCameraInput() const
     if (glfwGetKey(window, GLFW_KEY_G) == GLFW_RELEASE) 
     {
         gammaKeyPressed = false;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !shadowsKeyPressed)
+    {
+        shadows = !shadows;
+        shadowsKeyPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE)
+    {
+        shadowsKeyPressed = false;
     }
 }
 

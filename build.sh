@@ -10,6 +10,6 @@ cmake -DGLFW_BUILD_DOCS=OFF -DASSIMP_BUILD_TESTS=OFF ..
 cmake --build . --parallel 4
 
     pushd bin
-        ./shadow_mapping_improved
+        ./point_shadow
     popd
 cd ../
