@@ -22,6 +22,9 @@ bool blinnKeyPressed = false;
 bool shadows = true;
 bool shadowsKeyPressed = false;
 
+bool normal = false;
+bool normalKeyPressed = false;
+
 bool gammaEnabled = false;
 bool gammaKeyPressed = false;
 
@@ -163,6 +166,16 @@ void Application::processCameraInput() const
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE)
     {
         shadowsKeyPressed = false;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS && !normalKeyPressed)
+    {
+        normal = !normal;
+        normalKeyPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_N) == GLFW_RELEASE)
+    {
+        normalKeyPressed = false;
     }
 }
 
