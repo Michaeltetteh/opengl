@@ -68,10 +68,6 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
     setupMesh();
 }
 
-
-
-
-
 void Mesh::Draw(Shader &shader)
 {
     // bind appropriate textures
