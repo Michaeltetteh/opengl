@@ -28,6 +28,9 @@ bool normalKeyPressed = false;
 bool gammaEnabled = false;
 bool gammaKeyPressed = false;
 
+float heightScale = 0.1f;
+
+bool lightColor = true;
 /**
  * Sets up opengl application(creates glfw window(s) and initializes glad)
  *
@@ -176,6 +179,21 @@ void Application::processCameraInput() const
     if (glfwGetKey(window, GLFW_KEY_N) == GLFW_RELEASE)
     {
         normalKeyPressed = false;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) 
+    {
+        if (heightScale > 0.0f) 
+            heightScale -= 0.0005f;
+        else 
+            heightScale = 0.0f;
+    }
+    else if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) 
+    {
+        if (heightScale < 1.0f) 
+            heightScale += 0.0005f;
+        else 
+            heightScale = 1.0f;
     }
 }
 

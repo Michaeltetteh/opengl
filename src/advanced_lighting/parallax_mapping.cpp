@@ -10,7 +10,7 @@ void renderCube();
 
 int main()
 {
-    Application app("Normal Map");
+    Application app("Parallax Mapping");
 
     // configure global opengl state
     // -----------------------------
@@ -18,18 +18,20 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("shaders/normal_map/normal_mapping_vertx.glsl", "shaders/normal_map/normal_mapping_frag.glsl");
+    Shader shader("shaders/parallax_mapping/vertx.glsl", "shaders/parallax_mapping/frag.glsl");
 
     // load textures
     // -------------
-    unsigned int diffuseMap = loadTexture("resources/textures/brickwall.jpg");
-    unsigned int normalMap  = loadTexture("resources/textures/brickwall_normal.jpg");
+    unsigned int diffuseMap = loadTexture("resources/textures/bricks2.jpg");
+    unsigned int normalMap  = loadTexture("resources/textures/bricks2_normal.jpg");
+    unsigned int heightMap  = loadTexture("resources/textures/bricks2_disp.jpg");
 
     // shader configuration
     // --------------------
     shader.use();
     shader.setInt("diffuseMap", 0);
     shader.setInt("normalMap", 1);
+    shader.setInt("depthMap", 2);
 
     // lighting info
     // -------------
@@ -61,18 +63,22 @@ int main()
         shader.use();
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
-        // render normal-mapped quad
+        // render parallax-mapped quad
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::rotate(model, glm::radians((float)glfwGetTime() * -10.0f), glm::normalize(glm::vec3(1.0, 0.0, 1.0))); // rotate the quad to show normal mapping from multiple directions
-        shader.setInt("show_normals", normal);
+        model = glm::rotate(model, glm::radians((float)glfwGetTime() * -10.0f), glm::normalize(glm::vec3(1.0, 0.0, 1.0)));
         shader.setMat4("model", model);
         shader.setVec3("viewPos", Application::camera.Position);
         shader.setVec3("lightPos", lightPos);
         shader.setInt("light_color", !lightColor);
+        shader.setFloat("heightScale", heightScale); // adjust with Q and E keys
+        std::cout << heightScale << std::endl;
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, normalMap);
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, heightMap);
         renderQuad();
 
         // render light source (simply re-renders a smaller plane at the light's position for debugging/visualization)
@@ -81,7 +87,6 @@ int main()
         model = glm::scale(model, glm::vec3(0.1f));
         shader.setMat4("model", model);
         shader.setInt("light_color", lightColor);
-        // renderQuad();
         renderCube();
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

@@ -1,7 +1,7 @@
 project(advanced_lighting)
 
 foreach( _target blinn_phong gamma_correction shadow_mapping_depth shadow_mapping_base 
-                 shadow_mapping_improved point_shadow normal_map)
+                 shadow_mapping_improved point_shadow normal_map parallax_mapping)
     add_executable(${_target} ${APPS_HEADERS} ${_target}.cpp)
 
     target_include_directories(${_target}
