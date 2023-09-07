@@ -10,7 +10,7 @@ void renderCube();
 
 int main()
 {
-    Application app("Steep Parallax Mapping");
+    Application app("Parallax Occlusion Mapping");
 
     // configure global opengl state
     // -----------------------------
@@ -18,7 +18,7 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("shaders/steep_parallax_mapping/vertx.glsl", "shaders/steep_parallax_mapping/frag.glsl");
+    Shader shader("shaders/parallax_occlusion_mapping/vertx.glsl", "shaders/parallax_occlusion_mapping/frag.glsl");
 
     // load textures
     // -------------
