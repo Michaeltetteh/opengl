@@ -38,6 +38,8 @@ int main()
     // glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
     glm::vec3 lightPos(0.5f, 1.0f, 0.3f);
 
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(app.window))
