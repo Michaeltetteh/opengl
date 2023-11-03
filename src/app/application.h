@@ -31,6 +31,12 @@ bool gammaKeyPressed = false;
 float heightScale = 0.1f;
 
 bool lightColor = true;
+
+// hdr
+bool hdr = true;
+bool hdrKeyPressed = false;
+float exposure = 1.0f;
+
 /**
  * Sets up opengl application(creates glfw window(s) and initializes glad)
  *
@@ -194,6 +200,16 @@ void Application::processCameraInput() const
             heightScale += 0.0005f;
         else 
             heightScale = 1.0f;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS && !hdrKeyPressed)
+    {
+        hdr = !hdr;
+        hdrKeyPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_H) == GLFW_RELEASE)
+    {
+        hdrKeyPressed = false;
     }
 }
 

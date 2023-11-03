@@ -10,6 +10,6 @@ cmake -DGLFW_BUILD_DOCS=OFF -DASSIMP_BUILD_TESTS=OFF ..
 cmake --build . --parallel 4
 
     pushd bin
-        ./parallax_occlusion_mapping
+        ./hdr
     popd
 cd ../
