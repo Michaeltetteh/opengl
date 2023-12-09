@@ -42,6 +42,12 @@ bool bloom = true;
 bool bloomKeyPressed = false;
 
 
+
+float Lerp(float a, float b, float f)
+{
+    return a + f * (b - a);
+}
+
 /**
  * Sets up opengl application(creates glfw window(s) and initializes glad)
  *
