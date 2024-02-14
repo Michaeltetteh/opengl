@@ -82,6 +82,7 @@ copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/lighting/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/model_loading/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/advanced_opengl/shaders/)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/advanced_lighting/shaders/)
+copy_files(${CMAKE_CURRENT_SOURCE_DIR}/src/debugging/shaders/)
 
 
 add_subdirectory(external)
