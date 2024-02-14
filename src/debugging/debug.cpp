@@ -78,7 +78,7 @@ GLenum glCheckError_(const char *file, int line)
 
 int main()
 { 
-    Application app("Screen Space Ambient Occlussion");
+    Application app("Debugging opengl");
 
     // configure global opengl state
     // -----------------------------
