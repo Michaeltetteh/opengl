@@ -125,13 +125,6 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(app.window))
     {
-
-        // auto currentFrame = static_cast<float>(glfwGetTime());
-        // app.deltaTime = currentFrame - app.lastFrame;
-        // app.lastFrame = currentFrame;
-
-        // input
-        // -----
         app.processInput();
 
         // render
